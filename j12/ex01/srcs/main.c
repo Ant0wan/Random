@@ -9,9 +9,6 @@ int	main(int argc, char **argv)
 	 return (1); // To be changed for cat behavior
 	if (argc >= 2)
 		while (i < argc)
-		{
-			ft_pstdout(argc, argv[i]);
-			i++;
-		}
+			ft_pstdout(argc, argv[i++]);
 	return (0);
 }

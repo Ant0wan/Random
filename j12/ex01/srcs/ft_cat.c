@@ -11,10 +11,7 @@ void	ft_putstr(char *c)
 
 	i = 0;
 	while (c[i])
-	{
-		write(1, &c[i], 1);
-		i++;
-	}
+		write(1, &c[i++], 1);
 }
 
 void	ft_pstdout(int argc, char *argv)
