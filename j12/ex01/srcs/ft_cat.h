@@ -6,6 +6,6 @@
 ** Function prototypes
 */
 
-void	ft_pstdout(int argc, char **argv);
+void	ft_pstdout(int argc, char *argv);
 
 #endif
