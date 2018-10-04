@@ -5,23 +5,14 @@
 #include <errno.h>
 
 #define BUF_SIZE 30000
-#define ERROR_MSG_1 "cat: "
-#define ERROR_MSG_2 ": No such file or directory\n"
 
-void	ft_putstr(char *str)
+void	ft_putstr(char *c)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
-		write(1, &str[i++], 1);
-}
-
-void	ft_puterror(char *argv)
-{
-	ft_putstr(ERROR_MSG_1);
-	ft_putstr(argv);
-	ft_putstr(ERROR_MSG_2);
+	while (c[i])
+		write(1, &c[i++], 1);
 }
 
 int	ft_pstdout(int argc, char *argv)
@@ -33,7 +24,7 @@ int	ft_pstdout(int argc, char *argv)
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_puterror(argv);
+		ft_putstr("Open failed\n");
 		return (errno) ;
 	}
 	ret = read(fd, buf, BUF_SIZE);
