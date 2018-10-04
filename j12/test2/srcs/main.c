@@ -8,8 +8,8 @@ int	main(int argc, char **argv)
 
 	i = 1;
 	errno = 0;
-	if (argc < 2)
-		return (1);
+	if (argc == 1)
+		ft_write_input();
 	if (argc >= 2)
 		while (i < argc)
 			ft_pstdout(argc, argv[i++]);
