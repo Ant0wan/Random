@@ -9,7 +9,7 @@ int	main(int argc, char **argv)
 	i = 1;
 	errno = 0;
 	if (argc < 2)
-	 return (errno); // To be changed for cat behavior
+		return (1);
 	if (argc >= 2)
 		while (i < argc)
 			ft_pstdout(argc, argv[i++]);
