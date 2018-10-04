@@ -23,7 +23,7 @@ void	ft_puterror(char *argv)
 {
 	ft_putstr(ERROR_MSG_1);
 	ft_putstr(argv);
-	if (errno == 2)
+	if (errno == 9)
 		ft_putstr(ERROR_MSG_2);
 	else if (errno == 21)
 		ft_putstr(ERROR_MSG_3);
@@ -38,13 +38,8 @@ void	ft_pstdout(int argc, char *argv)
 
 	errno = 0;
 	fd = open(argv, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_puterror(argv);
-		return ;
-	}
 	ret = read(fd, buf, BUF_SIZE);
-	if (ret == -1)
+	if (fd == -1 || ret == -1)
 	{
 		ft_puterror(argv);
 		return ;
