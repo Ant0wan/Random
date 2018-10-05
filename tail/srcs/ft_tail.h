@@ -7,4 +7,14 @@
 #define ERRMSG_4 "error reading \'"
 #define ERRMSG_5 "\' Is a directory"
 
+/*
+** Function prototypes
+*/
+
+void	ft_putstr(char *str);
+
+void	ft_input_term(void);
+
+void	ft_tail(char *file_name);
+
 #endif
