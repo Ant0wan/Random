@@ -55,7 +55,7 @@ void	ft_tail(char *file_name, int size, int c_option_val)
 	}
 	ret += read(fd, buf, c_option_val);
 	buf[ret] = '\0';
-	ft_putstr(buf); // review printing dude !!
+	ft_putstr(buf);
 	if (close(fd) == -1)
 		ft_putstr(ERRMSG_CLOSE);
 }
