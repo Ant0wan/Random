@@ -6,6 +6,8 @@
 #define ERRMSG_3 "\' for reading: No such file or directory"
 #define ERRMSG_4 "error reading \'"
 #define ERRMSG_5 "\' Is a directory"
+#define ERRMSG_CLOSE "close() failed !\n"
+#define ERRMSG_OPEN "open() failed !\n"
 
 /*
 ** Function prototypes
