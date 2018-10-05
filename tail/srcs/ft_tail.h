@@ -13,10 +13,10 @@
 ** Function prototypes
 */
 
-void	ft_putstr(char *str);
-
 void	ft_input_term(void);
 
-void	ft_tail(char *file_name);
+int	ft_input_size(char *file_name);
+
+void	ft_tail(char *file_name, int size, int c_option_val);
 
 #endif
