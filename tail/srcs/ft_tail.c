@@ -2,7 +2,12 @@
 #include <errno.h>
 #include "ft_tail.h"
 
-int	main(void)
+void	ft_input_term(void)
 {
-	return (0);
+	return ;
+}
+
+void	ft_tail(argc, argv)
+{
+	return ;
 }
