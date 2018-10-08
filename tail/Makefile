@@ -1,10 +1,12 @@
 NAME = tail
 
 SRCS = srcs/main.c \
-       srcs/ft_tail.c
+       srcs/ft_tail.c \
+       srcs/ft_putstr.c
 
-O_FILES = main.o\
-	  ft_tail.o
+O_FILES = main.o \
+	  ft_tail.o \
+	  ft_putstr.o
 
 all: $(NAME)
 

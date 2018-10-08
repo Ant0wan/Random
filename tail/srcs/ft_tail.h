@@ -13,10 +13,16 @@
 ** Function prototypes
 */
 
+void	ft_putstr(char *c);
+
 void	ft_input_term(void);
 
-int	ft_input_size(char *file_name);
+int	ft_input_lines(char *file_name);
 
-void	ft_tail(char *file_name, int size, int c_option_val);
+int	ft_input_length(char *file_name);
+
+int	ft_input_size(char *file_name, int backslash_nb, int c_option_val);
+
+void	ft_tail(char *file_name, int size, int length);
 
 #endif

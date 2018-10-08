@@ -5,14 +5,7 @@
 #include <stdlib.h>
 #include "ft_tail.h"
 
-void	ft_putstr(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		write(1, &str[i++], 1);
-}
+#include <stdio.h> // DEBUGGING
 
 void	ft_input_term(void)
 {
@@ -22,23 +15,63 @@ void	ft_input_term(void)
 		(void)0;
 }
 
-int	ft_input_size(char *file_name)
+int	ft_input_lines(char *file_name)
+{
+	char 	buf;
+	int	fd;
+	int	backslash_nb;
+
+	backslash_nb = 0;
+	if ((fd = open(file_name, O_RDONLY)) == -1)
+		ft_putstr(ERRMSG_OPEN);
+	while (read(fd, &buf, 1) > 0)
+		if (buf == '\n')
+			backslash_nb++;
+	if (close(fd) == -1)
+		ft_putstr(ERRMSG_CLOSE);
+	return (backslash_nb);
+}
+
+int	ft_input_length(char *file_name)
+{
+	char 	buf;
+	int	fd;
+	int	length;
+
+	length = 0;
+	if ((fd = open(file_name, O_RDONLY)) == -1)
+		ft_putstr(ERRMSG_OPEN);
+	while (read(fd, &buf, 1) > 0)
+		length++;
+	if (close(fd) == -1)
+		ft_putstr(ERRMSG_CLOSE);
+	return (length);
+}
+
+int	ft_input_size(char *file_name, int backslash_nb, int c_option_val)
 {
 	char 	buf;
 	int	fd;
 	int	size;
+	int	count_bs;
 
 	size = 0;
+	count_bs = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		ft_putstr(ERRMSG_OPEN);
 	while (read(fd, &buf, 1) > 0)
-		size++;
+	{
+		if (buf == '\n')
+			count_bs++;
+		if (count_bs >= (backslash_nb - c_option_val)) 
+			size++;
+	}
 	if (close(fd) == -1)
 		ft_putstr(ERRMSG_CLOSE);
-	return (size);
+	return (size - 1);
 }
 
-void	ft_tail(char *file_name, int size, int c_option_val)
+void	ft_tail(char *file_name, int size, int length)
 {
 	int	fd;
 	int	ret;
@@ -48,12 +81,12 @@ void	ft_tail(char *file_name, int size, int c_option_val)
 	ret = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		ft_putstr(ERRMSG_OPEN);
-	buf = (char*)malloc(sizeof(char*) * c_option_val + 1);
-	while ((ret < (size - c_option_val)))
+	buf = (char*)malloc(sizeof(char*) * size + 1);
+	while (ret < (length - size))
 	{
 		ret += read(fd, &c, 1);
 	}
-	ret += read(fd, buf, c_option_val);
+	ret += read(fd, buf, size);
 	buf[ret] = '\0';
 	ft_putstr(buf);
 	if (close(fd) == -1)

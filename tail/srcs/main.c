@@ -1,11 +1,14 @@
 #include <unistd.h>
 #include "ft_tail.h"
 
-#define STD_VAL_C_OPTION 35
+#include <stdio.h> // DEBUGGING
+
+#define STD_VAL_C_OPTION 10
 
 int	main(int argc, char **argv)
 {
 	int	i;
+	int	lines;
 	int	size;
 	int	c_option_val;
 
@@ -15,11 +18,12 @@ int	main(int argc, char **argv)
 		ft_input_term();
 	else if (argc >= 2)
 	{
-		// get the size
 		while (i < argc)
 		{
-			size = ft_input_size(argv[i]);
-			ft_tail(argv[i++], size, c_option_val);
+			lines = ft_input_lines(argv[i]);
+			size = ft_input_size(argv[i], lines, c_option_val);
+			ft_tail(argv[i], size, ft_input_length(argv[i]));
+			i++;
 		}
 	}
 	return (0);
