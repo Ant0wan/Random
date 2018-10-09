@@ -14,15 +14,14 @@ int	main(int argc, char **argv)
 	i = 1;
 	if (argc == 1)
 		ft_input_term();
-	else if (argc >= 2)
+	while (i < argc)
 	{
-		while (i < argc)
-		{
-			lines = ft_input_lines(argv[i]);
-			size = ft_input_size(argv[i], lines, std_val);
-			ft_tail(argv[i], size, ft_input_length(argv[i]));
-			i++;
-		}
+		if (argc >= 1)
+			ft_print_header(argv[i]);
+		lines = ft_input_lines(argv[i]);
+		size = ft_input_size(argv[i], lines, std_val);
+		ft_tail(argv[i], size, ft_input_length(argv[i]));
+		i++;
 	}
 	return (0);
 }

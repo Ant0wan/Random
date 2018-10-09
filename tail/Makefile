@@ -2,11 +2,13 @@ NAME = tail
 
 SRCS = srcs/main.c \
        srcs/ft_tail.c \
-       srcs/ft_putstr.c
+       srcs/ft_putstr.c \
+       srcs/options.c
 
 O_FILES = main.o \
 	  ft_tail.o \
-	  ft_putstr.o
+	  ft_putstr.o \
+	  options.o
 
 all: $(NAME)
 
