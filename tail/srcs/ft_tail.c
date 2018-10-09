@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include "ft_tail.h"
 
-#include <stdio.h> // DEBUGGING
-
 void	ft_input_term(void)
 {
 	char	input[1];
@@ -48,7 +46,7 @@ int	ft_input_length(char *file_name)
 	return (length);
 }
 
-int	ft_input_size(char *file_name, int backslash_nb, int c_option_val)
+int	ft_input_size(char *file_name, int backslash_nb, int std_val)
 {
 	char 	buf;
 	int	fd;
@@ -63,7 +61,7 @@ int	ft_input_size(char *file_name, int backslash_nb, int c_option_val)
 	{
 		if (buf == '\n')
 			count_bs++;
-		if (count_bs >= (backslash_nb - c_option_val)) 
+		if (count_bs >= (backslash_nb - std_val)) 
 			size++;
 	}
 	if (close(fd) == -1)
