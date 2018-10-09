@@ -25,6 +25,6 @@ int	ft_input_size(char *file_name, int backslash_nb, int std_val);
 
 void	ft_tail(char *file_name, int size, int length);
 
-void	ft_print_header(char *file_name);
+void	ft_print_header(char *file_name, int argc, int i);
 
 #endif

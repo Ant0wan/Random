@@ -16,8 +16,9 @@ int	main(int argc, char **argv)
 		ft_input_term();
 	while (i < argc)
 	{
+
 		if (argc >= 3)
-			ft_print_header(argv[i]);
+			ft_print_header(argv[i], argc, i);
 		lines = ft_input_lines(argv[i]);
 		size = ft_input_size(argv[i], lines, std_val);
 		ft_tail(argv[i], size, ft_input_length(argv[i]));
