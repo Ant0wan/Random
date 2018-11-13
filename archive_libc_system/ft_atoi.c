@@ -6,15 +6,18 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 08:17:59 by abarthel          #+#    #+#             */
-/*   Updated: 2018/11/08 20:57:26 by abarthel         ###   ########.fr       */
+/*   Updated: 2018/11/09 12:46:46 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define MAX_INT 2147483647
+#define MIN_INT -2147483648
+
 int		ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	nbr;
+	int				i;
+	int				sign;
+	unsigned int	nbr;
 
 	i = 0;
 	nbr = 0;
@@ -28,6 +31,8 @@ int		ft_atoi(const char *str)
 	}
 	while (str[i] > 47 && str[i] < 58)
 	{
+		if ((sign == -1 ? MIN_INT : MAX_INT) / 10 < nbr || (sign == -1 ? MIN_INT : MAX_INT) - (str[i] - 48) < nbr * 10)
+			return (sign == -1 ? 0 : -1);
 		nbr = nbr * 10 + str[i] - 48;
 		++i;
 	}
