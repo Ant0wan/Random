@@ -11,7 +11,7 @@ The following files are some exercises in C. They are not compliant to the Norme
 
 ## Linked lists exercises
 
-Some exercises to master linked lists (structures) in `linked_lists_exercises.c`
+Some exercises to master linked lists (structures) in `./lists/linked_lists_exercises.c`
 
 ---
 
