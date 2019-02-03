@@ -4,7 +4,6 @@
 
 [![HitCount](http://hits.dwyl.io/Ant0wan/Random-C.svg)](http://hits.dwyl.io/Ant0wan/Random-C)
 
-
 The following files are some exercises in C. They are not compliant to the Norme and may not build nor be working.
 
 ---
@@ -19,18 +18,22 @@ Some exercises to master linked lists (structures) in `./lists/linked_lists_exer
 
 The `cat` command recoded without options.
 
-- cat function recoded : ./cat/
+cat function recoded : ./cat/
+
+Directory: `./cat/`
 
 ---
 
-#### Day 12:
- |-day12:<br />
-   |-ex00<br />
-     |- Makefile,<br />
-     |- ft_display_file.c ... <br />
-   |-ex01<br />
-     |- Makefile,<br />
-     |- ft_cat.c ... <br />
-   |-ex02<br />
-     |- Makefile,<br />
-     |- ft_tail.c ... <br />
+## Ft_display_file
+
+Program that display the content of a file and handle basic errors.
+
+Directory: `./display_file/`
+
+---
+
+## Unachieved Tail
+
+#### Unachieved
+
+The `tail` command recoded for some of its basics. Do not work. Parsing unachieved.
