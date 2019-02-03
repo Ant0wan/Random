@@ -8,6 +8,12 @@ The following files are some exercises in C. They are not compliant to the Norme
 
 ---
 
+## Minitalk <NotWorking>
+
+Minitalk is a little program for transfering data using UNIX signals.
+
+---
+
 ## Linked lists exercises
 
 Some exercises to master linked lists (structures) in `./lists/linked_lists_exercises.c`
