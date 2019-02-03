@@ -1,9 +1,29 @@
+# Random C [![freetime](https://i.imgur.com/8IcDLkc.png)](i.imgur.com/8IcDLkc.png)
+
+---
+
+[![HitCount](http://hits.dwyl.io/Ant0wan/Random-C.svg)](http://hits.dwyl.io/Ant0wan/Random-C)
 
 
-The following files are some exercises in C. They are not compliant to the Norme.
+The following files are some exercises in C. They are not compliant to the Norme and may not build nor be working.
 
-#### Day 11:
- 1. mainj11.c <br />
+---
+
+## Linked lists:
+
+- linked_lists_exercises.c
+
+---
+
+## Ft_cat.c
+
+
+the `cat` command recoded without options.
+
+- cat function recoded : ./cat/
+
+
+---
 
 #### Day 12:
  |-day12:<br />
