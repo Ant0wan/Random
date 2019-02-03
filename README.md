@@ -9,19 +9,17 @@ The following files are some exercises in C. They are not compliant to the Norme
 
 ---
 
-## Linked lists:
+## Linked lists exercises
 
-- linked_lists_exercises.c
+Some exercises to master linked lists (structures) in `linked_lists_exercises.c`
 
 ---
 
 ## Ft_cat.c
 
-
-the `cat` command recoded without options.
+The `cat` command recoded without options.
 
 - cat function recoded : ./cat/
-
 
 ---
 
