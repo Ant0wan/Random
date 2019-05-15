@@ -100,3 +100,11 @@ va_list          4
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
 ```
+
+---
+
+## Binary Trees
+
+Functions from 42's day13 piscine C concerning binary trees.
+
+Directory: `./binarytrees/`
