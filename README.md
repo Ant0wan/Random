@@ -34,7 +34,7 @@ Directory: `./cat/`
 
 ## Ft_display_file
 
-Program that display the content of a file and handle basic errors.
+Program that displays the content of a file and handle basic errors.
 
 Directory: `./display_file/`
 
@@ -45,3 +45,58 @@ Directory: `./display_file/`
 #### Unachieved
 
 The `tail` command recoded for some of its basics. Do not work. Parsing unachieved.
+
+Directory: `./tail/`
+
+---
+
+## Cstd
+
+Script that diplays information about the C standard in use by gcc and variables.
+
+Directory: `./Cstd/`
+
+Output sample:
+```
+C STANDARD AND SYSTEM INFORMATION
+
+C standard in use by default by the compiler (C17:201710L, C11:201112L, C99:199901L, ...):
+__STDC_VERSION__ 201112L
+
+Types sizeof in 64bits system:
+_______ PADDING TEST _______
+Type:        Size in bytes:
+void             1
+char             1
+short            2
+int              4
+float            4
+double           8
+size_t           8
+intmax_t         8
+ptrdiff_t        8
+pointer          8
+long long        8
+long double      16
+va_list          24
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+Types sizeof in 32bits system:
+_______ PADDING TEST _______
+Type:        Size in bytes:
+void             1
+char             1
+short            2
+int              4
+float            4
+double           8
+size_t           4
+intmax_t         8
+ptrdiff_t        4
+pointer          4
+long long        8
+long double      16
+va_list          4
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+
+```
