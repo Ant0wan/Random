@@ -14,13 +14,14 @@
 
 void	applylevel(void *item, int current_level, int is_first_elem)
 {
-	printf("%s, lvl: %d, %d\n", (char*)item, current_level, is_first_elem);
+	printf("%s, %d, %d\n", (char*)item, current_level, is_first_elem);
 }
 
 void	donothing(void *ptr)
 {
 	printf("%s\n", (char*)ptr);
 }
+
 
 //int		*strcmp(void *a, void *b)
 //{

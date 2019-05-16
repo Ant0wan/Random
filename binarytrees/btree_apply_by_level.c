@@ -6,11 +6,10 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:56:59 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/16 16:55:42 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/16 18:07:44 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_btree.h"
 
 t_file	*create_indiv(t_btree *node)
@@ -33,14 +32,18 @@ void	remove_indiv(t_file **elem)
 	}
 }
 
-void	print(t_file *list)
+void	apply(t_file *list, void (*applyf)(void *item,int current_level,
+			int is_first_elem))
 {
 	t_file	*tmp;
+	static int i;
 
 	while (list)
 	{
 		tmp = list->next;
-		printf("%s, level: %d\n", list->node->item, list->level);
+		applyf(list->node->item, list->level,
+				!list->level || i != list->level ? 1 : 0);
+		i = list->level;
 		remove_indiv(&list);
 		list = tmp;
 	}
@@ -74,6 +77,6 @@ void	btree_apply_by_level(t_btree *root, void (*applyf)(void *item,
 			}
 			file = file->next;
 		}
-		print(origin);
+		apply(origin, applyf);
 	}
 }
