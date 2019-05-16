@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:56:59 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/16 13:21:38 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/16 16:55:42 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_file	*create_indiv(t_btree *node)
 
 	new = (t_file*)malloc(sizeof(t_file));
 	new->node = node;
+	new->level = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -32,36 +33,47 @@ void	remove_indiv(t_file **elem)
 	}
 }
 
+void	print(t_file *list)
+{
+	t_file	*tmp;
+
+	while (list)
+	{
+		tmp = list->next;
+		printf("%s, level: %d\n", list->node->item, list->level);
+		remove_indiv(&list);
+		list = tmp;
+	}
+}
+
 void	btree_apply_by_level(t_btree *root, void (*applyf)(void *item,
 			int current_level, int is_first_elem))
 {
 	t_file	*file;
-	t_file	*up;
 	t_file	*tmp;
+	t_file	*origin;
 
-	file = NULL;
-	tmp = NULL;
-	up = NULL;
 	if (root)
 	{
-		file = create_indiv(root); //create first element
-		tmp = file; // copy beg pointer of the queue
-		while (file) //check there is something in queue
+		file = create_indiv(root);
+		tmp = file;
+		origin = file;
+		while (file)
 		{
-			printf("%s\n", file->node->item); // print element in queue
 			if (file->node->left)
 			{
-				tmp->next = create_indiv(file->node->left); // put left tree as elem in list
-				tmp = tmp->next; // go to last element in list
+				tmp->next = create_indiv(file->node->left);
+				tmp->next->level = file->level + 1;
+				tmp = tmp->next;
 			}
 			if (file->node->right)
 			{
 				tmp->next = create_indiv(file->node->right);
-				tmp = tmp->next; // go to last element in list
+				tmp->next->level = file->level + 1;
+				tmp = tmp->next;
 			}
-			up = file->next;
-			remove_indiv(&file);
-			file = up;
+			file = file->next;
 		}
+		print(origin);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 18:18:52 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/16 11:27:31 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/16 13:49:04 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct		s_btree
 typedef struct		s_file
 {
 	t_btree			*node;
+	int				level;
 	struct s_file	*next;
 }					t_file;
 
