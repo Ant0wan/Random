@@ -12,6 +12,10 @@
  *								j
 */
 
+void	applylevel(void *item, int current_level, int is_first_elem)
+{
+	printf("%s, lvl: %d, %d\n", (char*)item, current_level, is_first_elem);
+}
 
 void	donothing(void *ptr)
 {
@@ -106,7 +110,7 @@ int main(void)
 //	root = &d;
 //	btree_insert_data(&root, (void*)s8, (int (*)(void*, void*))&strcmp);
 //	root = &d;
-	printf("\n\n");
+//	printf("\n\n");
 //	t_btree	*ptr;
 //	ptr = btree_search_item(&d, (void*)s9, (int (*)(void*, void*))&strcmp);
 //	printf("%p\n", ptr);
@@ -118,8 +122,8 @@ int main(void)
 //		printf("TT");
 //	//	printf("found:%s\n", (char*)(ptr->item));
 //	}
-	btree_apply_infix(&d, &donothing);
-//	btree_apply_prefix(&d, &donothing);
+	//btree_apply_infix(&d, &donothing);
+	//btree_apply_prefix(&d, &donothing);
 /*	    	TEST UNBALANCED BINARY TREE AFTER INSERTS
  *				
  *					d		
@@ -129,8 +133,8 @@ int main(void)
  *						g		j
 */
 	printf("\n\n");
-	printf("level max:%d\n", btree_level_count(&d));
-
+	//printf("level max:%d\n", btree_level_count(&d));
+	btree_apply_by_level(root, applylevel);
 
 	return (0);
 }
