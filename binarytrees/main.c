@@ -83,13 +83,13 @@ int main(void)
 	//btree_apply_suffix(&d, &donothing);
 	char	*s = "g";
 	char	*s1 = "a";
-//	char	*s2 = "z";
-//	char	*s3 = "g";
-//	char	*s4 = "g";
-//	char	*s5 = "g";
-//	char	*s6 = "g";
-//	char	*s7 = "g";
-//	char	*s8 = "g";
+	char	*s2 = "z";
+	char	*s3 = "g";
+	char	*s4 = "g";
+	char	*s5 = "g";
+	char	*s6 = "g";
+	char	*s7 = "g";
+	char	*s8 = "g";
 //	char	*s9 = "j";
 	t_btree	*root;
 	root = &d;
@@ -97,20 +97,20 @@ int main(void)
 	root = &d;
 	btree_insert_data(&root, (void*)s1, (int (*)(void*, void*))&strcmp);
 	root = &d;
-//	btree_insert_data(&root, (void*)s2, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s3, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s4, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s5, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s6, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s7, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s8, (int (*)(void*, void*))&strcmp);
-//	root = &d;
+	btree_insert_data(&root, (void*)s2, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s3, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s4, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s5, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s6, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s7, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s8, (int (*)(void*, void*))&strcmp);
+	root = &d;
 //	printf("\n\n");
 //	t_btree	*ptr;
 //	ptr = btree_search_item(&d, (void*)s9, (int (*)(void*, void*))&strcmp);
@@ -132,6 +132,11 @@ int main(void)
  *			  a  c    e    h
  *			a			 g   i
  *						g		j
+ *					   g         z
+ *					  g
+ *					 g
+ *					g
+ *				   g
 */
 	printf("\n\n");
 	//printf("level max:%d\n", btree_level_count(&d));
