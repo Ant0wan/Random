@@ -6,12 +6,11 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/13 18:23:26 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/17 18:09:42 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/17 18:25:04 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_btree.h"
-#include <stdio.h>
 
 t_btree	*btree_create_node(void *item)
 {
