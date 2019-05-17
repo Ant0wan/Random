@@ -79,6 +79,7 @@ int main(void)
 //	char	*s9 = "j";
 	t_btree	*root;
 	root = &d;
+	//root = NULL;
 	btree_insert_data(&root, (void*)s, (int (*)(void*, void*))&strcmp);
 //	root = &d;
 //	btree_insert_data(&root, (void*)s1, (int (*)(void*, void*))&strcmp);
