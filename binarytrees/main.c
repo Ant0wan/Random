@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <strings.h>
 #include "ft_btree.h"
+#include "ft_btree_rb.h"
 
 /*	    	TEST UNBALANCED BINARY TREE
  *				
