@@ -13,10 +13,25 @@
  *								j
 */
 
-void	applylevel(void *item, int current_level, int is_first_elem){
-	printf("%s, %d, %d\n", (char*)item, current_level, is_first_elem);}
+void	applylevel(void *item, int current_level, int is_first_elem)
+{
+	printf("%s, %d, %d\n", (char*)item, current_level, is_first_elem);
+}
 
-void	donothing(void *ptr){printf("%s\n", (char*)ptr);}
+void	donothing(void *ptr)
+{
+	printf("%s\n", (char*)ptr);
+}
+
+
+//int		*strcmp(void *a, void *b)
+//{
+//	int	*i;
+//	i = (int*)malloc(sizeof(int));
+//
+//	*i = strcmp((char*)a, (char*)b);
+//	return (i);
+//}
 
 int main(void)
 {
@@ -65,7 +80,7 @@ int main(void)
 	j.item = "j";
 
 	//btree_apply_prefix(&d, &donothing);
-	//btree_apply_infix(&d, &donothing);
+//	btree_apply_infix(&d, &donothing);
 	//btree_apply_suffix(&d, &donothing);
 	char	*s = "g";
 	char	*s1 = "a";
@@ -80,23 +95,23 @@ int main(void)
 	t_btree	*root;
 	root = &d;
 	btree_insert_data(&root, (void*)s, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s1, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s2, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s3, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s4, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s5, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s6, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s7, (int (*)(void*, void*))&strcmp);
-//	root = &d;
-//	btree_insert_data(&root, (void*)s8, (int (*)(void*, void*))&strcmp);
-//	root = &d;
+	root = &d;
+	btree_insert_data(&root, (void*)s1, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s2, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s3, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s4, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s5, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s6, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s7, (int (*)(void*, void*))&strcmp);
+	root = &d;
+	btree_insert_data(&root, (void*)s8, (int (*)(void*, void*))&strcmp);
+	root = &d;
 //	printf("\n\n");
 //	t_btree	*ptr;
 //	ptr = btree_search_item(&d, (void*)s9, (int (*)(void*, void*))&strcmp);

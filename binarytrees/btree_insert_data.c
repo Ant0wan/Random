@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 11:54:06 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/15 11:44:54 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/17 16:46:53 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	btree_insert_data(t_btree **root, void *item,
 			}
 		}
 	}
-	if (!root)
+	if (!*root)
 		*root = btree_create_node(item);
 }
