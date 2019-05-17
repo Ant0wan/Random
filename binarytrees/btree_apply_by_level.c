@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 11:56:59 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/17 14:01:34 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/17 17:16:28 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static t_file	*create_in(t_btree *node)
 	return (new);
 }
 
-static void	remove_indiv(t_file **elem)
+static void		remove_indiv(t_file **elem)
 {
 	if (elem && *elem)
 	{
@@ -32,8 +32,8 @@ static void	remove_indiv(t_file **elem)
 	}
 }
 
-static void	apply(t_file *list, void (*applyf)(void *item, int current_level,
-			int is_first_elem))
+static void		apply(t_file *list, void (*applyf)(void *item,
+			int current_level, int is_first_elem))
 {
 	t_file		*tmp;
 	static int	i;
@@ -49,7 +49,7 @@ static void	apply(t_file *list, void (*applyf)(void *item, int current_level,
 	}
 }
 
-void	btree_apply_by_level(t_btree *root, void (*applyf)(void *item,
+void			btree_apply_by_level(t_btree *root, void (*applyf)(void *item,
 			int current_level, int is_first_elem))
 {
 	t_file	*file;
