@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 11:08:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/21 17:36:21 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/21 18:19:51 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,57 @@
 #include "ft_btree_rb.h"
 #include <stdio.h>
 
-t_rb_node	*insert_data(t_rb_node *root, void *item,
+static t_rb_node	*rb_create_node(void *data, t_rb_node *parent)
+{
+	t_rb_node	*ptr;
+
+	ptr = (t_rb_node*)0;
+	if (!(ptr = (t_rb_node*)malloc(sizeof(t_rb_node))))
+		return ((t_rb_node*)0);
+	else
+	{
+		ptr->left = (t_rb_node*)0;
+		ptr->right = (t_rb_node*)0;
+		ptr->data = data;
+		ptr->parent = parent;
+		ptr->color = RB_RED;
+		return (ptr);
+	}
+}
+
+static t_rb_node	*insert_data(t_rb_node *root, void *data,
 		int (*cmpf)(void *, void *))
 {
 	while (root)
 	{
-		if (cmpf(root->data, item) > 0)
+		if (cmpf(root->data, data) > 0)
 		{
 			if (root->left)
 				root = root->left;
-			else if ((root->left = (t_rb_node*)btree_create_node(item)))
-				return (root);
+			else if ((root->left = rb_create_node(data, root)))
+				return (root->left);
 		}
 		else
 		{
 			if (root->right)
 				root = root->right;
-			else if ((root->right = (t_rb_node*)btree_create_node(item)))
-				return (root);
+			else if ((root->right = rb_create_node(data, root)))
+				return (root->right);
 		}
 	}
 	if (!root)
-		root = (t_rb_node*)btree_create_node(item);
+		root = rb_create_node(data, (t_rb_node*)0);
 	return (root);
 }
 
-void		rb_insert(struct s_rb_node **root, void *data,
+void				rb_insert(struct s_rb_node **root, void *data,
 		int (*cmpf)(void *, void *))
 {
 	t_rb_node	*node;
 
-	node = insert_data(*root, data, cmpf);
-	node->color = RB_RED;
-	printf("color %d,%s\n", node->color, (char*)node->data);
-	(void)root;
-	(void)data;
-	(void)cmpf;
+	if (!(node = insert_data(*root, data, cmpf)))
+		return ;
+//	(void)root;
+//	(void)data;
+//	(void)cmpf;
 }

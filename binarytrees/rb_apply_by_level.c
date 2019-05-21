@@ -4,6 +4,7 @@
 
 #include "ft_btree.h"
 #include "ft_btree_rb.h"
+#include <stdio.h>
 
 typedef struct		s_rbfile
 {

@@ -60,9 +60,9 @@ int main(void)
 	
 /*	    	TEST UNBALANCED BINARY TREE
  *				
- *					c		
- *			     b		d	
- *			  a			   e
+ *					c(b)		
+ *			     b(r)	d(r)	
+ *			  a(r)		  e(b)
 */
 
 	printf("\n\n");
