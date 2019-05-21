@@ -16,30 +16,28 @@ void            rb_apply_by_level(t_rb_node *root, void (*applyf)(void *item,
 /*	    	TEST UNBALANCED BINARY TREE
  *				
  *					c		
- *			     b		d	
- *			  a
+ *			     b	   d	
 */
 
 int main(void)
 {
-	t_rb_node	a, b, c, d;
+	t_rb_node	b, c, d;
 
 	c.left = &b;
 	c.right = &d;
 	c.data = "c";
+	c.parent = NULL;
 	c.color = RB_BLACK;
-	b.left = &a;
+	b.left = NULL;
 	b.right = NULL;
 	b.data = "b";
 	b.color = RB_RED;
-	a.left = NULL;
-	a.right = NULL;
-	a.data = "a";
-	a.color = RB_RED;
+	b.parent = &c;
 	d.left = NULL;
 	d.right = NULL;
 	d.data = "d";
 	d.color = RB_RED;
+	d.parent = &c;
 
 	char	*s = "e";
 //	char	*s = "e", *s1 = "a", *s2 = "b", *s3 = "c", *s4 = "d", *s5 = "e";
@@ -62,7 +60,7 @@ int main(void)
  *				
  *					c(b)		
  *			     b(r)	d(r)	
- *			  a(r)		  e(b)
+ *			     		  e(b)
 */
 
 	printf("\n\n");
