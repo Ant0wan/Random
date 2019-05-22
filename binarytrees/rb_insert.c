@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 11:08:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/22 12:21:23 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/22 12:53:44 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,12 @@ void				rotation(struct s_rb_node **root,
 	}
 	else
 	{
-		//right rotation
+		if (!(tmp = node->parent))
+			*root = node->left;
+		node->parent = node->left;
+		node->left = node->parent->right;
+		node->parent->right = node;
+		node->parent->parent = tmp;
 	}
 }
 
@@ -85,5 +90,4 @@ void				rb_insert(struct s_rb_node **root, void *data,
 	if (!(node = insert_data(*root, data, cmpf)))
 		return ;
 	node->color = RB_BLACK;
-
 }

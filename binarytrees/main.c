@@ -67,6 +67,7 @@ int main(void)
 	//btree_apply_by_level((t_btree*)root, applylevel);
 	rb_apply_by_level(root, rbapplylevel);
 	rotation(&root, &c, 1);
+	rotation(&root, &d, 0);
 	printf("\n\n");
 	rb_apply_by_level(root, rbapplylevel);
 
