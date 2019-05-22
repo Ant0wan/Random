@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 11:08:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/22 12:53:44 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/22 17:19:36 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void				rotation(struct s_rb_node **root,
 		node->parent = node->right;
 		node->right = node->parent->left;
 		node->parent->left = node;
-		node->parent->parent = tmp;
+		node->parent->parent = tmp; //same
 	}
 	else
 	{
@@ -78,7 +78,26 @@ void				rotation(struct s_rb_node **root,
 		node->parent = node->left;
 		node->left = node->parent->right;
 		node->parent->right = node;
-		node->parent->parent = tmp;
+		node->parent->parent = tmp; //same
+	}
+}
+
+void				set_color(struct s_rb_node *node, _Bool branch) // 0 left, 1 right
+{
+	if (node->parent->color == RB_RED)
+	{
+		if (branch)
+		{
+			node->parent->parent->left->color = RB_BLACK;
+			node->parent->parent->color = RB_RED; // same
+			node->parent->color = RB_BLACK; // same
+		}
+		else
+		{
+			node->parent->parent->right->color = RB_BLACK;
+			node->parent->parent->color = RB_RED; //same
+			node->parent->color = RB_BLACK; //same
+		}
 	}
 }
 
@@ -89,5 +108,4 @@ void				rb_insert(struct s_rb_node **root, void *data,
 
 	if (!(node = insert_data(*root, data, cmpf)))
 		return ;
-	node->color = RB_BLACK;
 }

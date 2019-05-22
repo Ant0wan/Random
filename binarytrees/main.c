@@ -9,67 +9,42 @@ void	applylevel(void *data, int current_level, int is_first_elem){
 void	rbapplylevel(void *data, int current_level, int is_first_elem, int color){
 	printf("%s, l:%d, %d, c:%d\n", (char*)data, current_level, is_first_elem, color);}
 void donothing(void *ptr){printf("%s\n", (char*)ptr);}
+int		sup(int *a, int *b){return (*a - *b);}
 
 void            rb_apply_by_level(t_rb_node *root, void (*applyf)(void *item,
 			int current_level, int is_first_elem, int color));
 
-/*	    	TEST UNBALANCED BINARY TREE
- *				
- *					c		
- *			     b	   d	
-*/
-
 int main(void)
 {
-	t_rb_node	b, c, d;
+	// left, right, parent, data, color
+	int			on = 1, el = 11, tw = 2, fo = 4, fi = 5, sev = 7, eig = 8, fourt = 14, fivte = 15;
+	t_rb_node	one = {NULL, NULL, &on, &two, RB_BLACK},
+				two = {&one, &seven, &eleven, &tw, RB_RED},
+				four = {NULL, NULL, &five, &fo, RB_RED},
+				five = {&four, NULL, &seven, &fi, RB_RED},
+				seven = {&five, &eight, &two, &sev, RB_BLACK},
+				eight = {NULL, NULL, &seven, &eig, RB_RED},
+				eleven = {&two, &fourteen, NULL, &el, RB_BLACK},
+				fourteen = {NULL, &fiveteen, &eleven, &fourt, RB_BLACK},
+				fiveteen = {NULL, NULL, &fourteen, &fivte, RB_RED};
 
-	c.left = &b;
-	c.right = &d;
-	c.data = "c";
-	c.parent = NULL;
-	c.color = RB_BLACK;
-	b.left = NULL;
-	b.right = NULL;
-	b.data = "b";
-	b.color = RB_RED;
-	b.parent = &c;
-	d.left = NULL;
-	d.right = NULL;
-	d.data = "d";
-	d.color = RB_RED;
-	d.parent = &c;
-
-	char	*s = "e";
-//	char	*s = "e", *s1 = "a", *s2 = "b", *s3 = "c", *s4 = "d", *s5 = "e";
-//	char	*s6 = "f", *s7 = "g", *s8 = "h";
-
+	int	s = 4;
 	t_rb_node	*root;
-	root = &c;
+
+	root = NULL;
+	rb_insert(&root, (void*)&s, (int (*)(void*, void*))&sup);
 	
-	rb_insert(&root, (void*)s, (int (*)(void*, void*))&strcmp);
-//	rb_insert(&root, (void*)s1, (int (*)(void*, void*))&strcmp);
-//	rb_insert(&root, (void*)s2, (int (*)(void*, void*))&strcmp);
-//	rb_insert(&root, (void*)s3, (int (*)(void*, void*))&strcmp);
-//	rb_insert(&root, (void*)s4, (int (*)(void*, void*))&strcmp);
-//	rb_insert(&root, (void*)s5, (int (*)(void*, void*))&strcmp);
-//	rb_insert(&root, (void*)s6, (int (*)(void*, void*))&strcmp);
-//	rb_insert(&root, (void*)s7, (int (*)(void*, void*))&strcmp);
-//	rb_insert(&root, (void*)s8, (int (*)(void*, void*))&strcmp);
-	
-/*	    	TEST UNBALANCED BINARY TREE
- *				
- *					c(b)		
- *			     b(r)	d(r)	
- *			     		  e(b)
-*/
 
 	printf("\n\n");
 	//btree_apply_by_level((t_btree*)root, applylevel);
-	rb_apply_by_level(root, rbapplylevel);
-	rotation(&root, &c, 1);
-	rotation(&root, &d, 0);
-	printf("\n\n");
-	rb_apply_by_level(root, rbapplylevel);
+//	rb_apply_by_level(root, rbapplylevel);
+//	rotation(&root, &c, 1);
+//	rotation(&root, &d, 0);
+//	printf("\n\n");
+//	rb_apply_by_level(root, rbapplylevel);
+//	printf("\n\n");
+//	set_color(d.right, 1);
+//	rb_apply_by_level(root, rbapplylevel);
 
 	return (0);
 }

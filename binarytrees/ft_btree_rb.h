@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 09:40:29 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/22 12:21:39 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/22 15:28:33 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void					rb_remove(struct s_rb_node **root, void *data,
 		int (*cmpf)(void *, void *), void (*freef)(void *));
 
 void					rotation(struct s_rb_node **root, struct s_rb_node *node, _Bool clockwise);
+void					set_color(struct s_rb_node *node, _Bool branch);
 
 #endif
