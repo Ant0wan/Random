@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 11:08:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/21 18:19:51 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/22 12:21:23 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,26 @@ static t_rb_node	*insert_data(t_rb_node *root, void *data,
 	return (root);
 }
 
+void				rotation(struct s_rb_node **root,
+		struct s_rb_node *node, _Bool clockwise)
+{
+	t_rb_node	*tmp;
+
+	if (clockwise)
+	{
+		if (!(tmp = node->parent))
+			*root = node->right;
+		node->parent = node->right;
+		node->right = node->parent->left;
+		node->parent->left = node;
+		node->parent->parent = tmp;
+	}
+	else
+	{
+		//right rotation
+	}
+}
+
 void				rb_insert(struct s_rb_node **root, void *data,
 		int (*cmpf)(void *, void *))
 {
@@ -64,7 +84,6 @@ void				rb_insert(struct s_rb_node **root, void *data,
 
 	if (!(node = insert_data(*root, data, cmpf)))
 		return ;
-//	(void)root;
-//	(void)data;
-//	(void)cmpf;
+	node->color = RB_BLACK;
+
 }
