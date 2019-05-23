@@ -108,3 +108,12 @@ va_list          4
 Functions from 42's day13 piscine C concerning binary trees.
 
 Directory: `./binarytrees/`
+
+
+---
+
+## Obfuscated C Code
+
+Various obfuscated C code samples - just for fun !
+
+Directory: `./ObfuscatedCCode/`

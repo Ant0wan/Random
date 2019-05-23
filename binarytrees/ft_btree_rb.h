@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 09:40:29 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/22 15:28:33 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/22 17:49:02 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ typedef struct			s_rb_node
 {
 	struct s_rb_node	*left;
 	struct s_rb_node	*right;
-	void				*data;
 	struct s_rb_node	*parent;
+	void				*data;
 	enum e_rb_color		color;
 }						t_rb_node;
 

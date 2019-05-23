@@ -1,0 +1,60 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <strings.h>
+#include "ft_btree.h"
+#include "ft_btree_rb.h"
+
+void	applylevel(void *data, int current_level, int is_first_elem){
+	printf("%s, %d, %d\n", (char*)data, current_level, is_first_elem);}
+void	rbapplylevel(void *data, int current_level, int is_first_elem, int color){
+	printf("%s, l:%d, %d, c:%d\n", (char*)data, current_level, is_first_elem, color);}
+void donothing(void *ptr){printf("%s\n", (char*)ptr);}
+int		sup(int *a, int *b){return (*a - *b);}
+
+void            rb_apply_by_level(t_rb_node *root, void (*applyf)(void *item,
+			int current_level, int is_first_elem, int color));
+
+int main(void)
+{
+	// left, right, parent, data, color
+	int			on = 1, el = 11, tw = 2, fo = 4, fi = 5, sev = 7, eig = 8, fourt = 14, fivte = 15;
+	t_rb_node	fourteen;
+	t_rb_node	fiveteen;
+	t_rb_node	two;
+	t_rb_node	one;
+	t_rb_node	four;
+	t_rb_node	five;
+	t_rb_node	seven;
+	t_rb_node	eight;
+	t_rb_node	eleven;
+	
+	fourteen =	{.left=NULL, .right = &fiveteen, .parent = &eleven, .data = &fourt, .color = RB_BLACK};
+	fiveteen =	{.left=NULL, .right = NULL, .parent =&fourteen, .data =&fivte, .color = RB_RED};
+	two =		{.left=&one, .right = &seven, .parent =&eleven, .data =&tw, .color =RB_RED};
+	one =		{.left=NULL, .right = NULL, .parent =&two, .data =&on, .color =RB_BLACK};
+	four =		{.left=NULL, .right = NULL, .parent =&five, .data =&fo, .color =RB_RED};
+	five =		{.left=&four,.right =  NULL, .parent =&seven, .data =&fi, .color =RB_RED};
+	seven =		{.left=&five,.right =  &eight, .parent =&two, .data =&sev, .color =RB_BLACK};
+	eight =		{.left=NULL, .right = NULL, .parent =&seven, .data =&eig, .color =RB_RED};
+	eleven =	{.left=&two, .right = &fourteen, .parent =NULL, .data =&el, .color =RB_BLACK};
+
+	int	s = 4;
+	t_rb_node	*root;
+
+	root = NULL;
+	rb_insert(&root, (void*)&s, (int (*)(void*, void*))&sup);
+	
+
+	printf("\n\n");
+	//btree_apply_by_level((t_btree*)root, applylevel);
+//	rb_apply_by_level(root, rbapplylevel);
+//	rotation(&root, &c, 1);
+//	rotation(&root, &d, 0);
+//	printf("\n\n");
+//	rb_apply_by_level(root, rbapplylevel);
+//	printf("\n\n");
+//	set_color(d.right, 1);
+//	rb_apply_by_level(root, rbapplylevel);
+
+	return (0);
+}
