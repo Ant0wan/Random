@@ -1,3 +1,5 @@
+// get emojis https://getemoji.com/
+
 #define 🦐 int
 🦐	📱(🦐 👍, 🦐  🤙 ){return (👍  + 🤙 );}
 
