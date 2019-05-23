@@ -6,7 +6,7 @@
 /*   By: abarthel <abarthel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 11:08:23 by abarthel          #+#    #+#             */
-/*   Updated: 2019/05/22 17:19:36 by abarthel         ###   ########.fr       */
+/*   Updated: 2019/05/23 12:41:57 by abarthel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,14 @@ static t_rb_node	*insert_data(t_rb_node *root, void *data,
 }
 
 void				rotation(struct s_rb_node **root,
-		struct s_rb_node *node, _Bool clockwise)
+		struct s_rb_node *node, _Bool clockwise) // rotation HS
 {
 	t_rb_node	*tmp;
 
+	if (node->parent->parent->right == node->parent)
+		node->parent->parent->right = node;
+	else if (node->parent->parent->left == node->parent)
+		node->parent->parent->right = node;
 	if (clockwise)
 	{
 		if (!(tmp = node->parent))
@@ -69,7 +73,6 @@ void				rotation(struct s_rb_node **root,
 		node->parent = node->right;
 		node->right = node->parent->left;
 		node->parent->left = node;
-		node->parent->parent = tmp; //same
 	}
 	else
 	{
@@ -78,26 +81,23 @@ void				rotation(struct s_rb_node **root,
 		node->parent = node->left;
 		node->left = node->parent->right;
 		node->parent->right = node;
-		node->parent->parent = tmp; //same
 	}
+	node->parent->parent = tmp;
+
 }
+
+// by checking address verify if left or if right
 
 void				set_color(struct s_rb_node *node, _Bool branch) // 0 left, 1 right
 {
 	if (node->parent->color == RB_RED)
 	{
 		if (branch)
-		{
 			node->parent->parent->left->color = RB_BLACK;
-			node->parent->parent->color = RB_RED; // same
-			node->parent->color = RB_BLACK; // same
-		}
 		else
-		{
 			node->parent->parent->right->color = RB_BLACK;
-			node->parent->parent->color = RB_RED; //same
-			node->parent->color = RB_BLACK; //same
-		}
+		node->parent->parent->color = RB_RED;
+		node->parent->color = RB_BLACK;
 	}
 }
 

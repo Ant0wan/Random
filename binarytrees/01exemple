@@ -40,12 +40,14 @@ int main(void)
 	
 
 	printf("\n\n");
+	//btree_apply_by_level((t_btree*)root, applylevel);
 //	rb_apply_by_level(root, rbapplylevel);
-	rb_apply_by_level(root, rbapplylevel);
-	rotation(&root, &seven, 0);
-//	rotation(&root, &eleven, 1);
-	printf("\n\n");
-//	set_color(&four, 0);
+//	rotation(&root, &c, 1);
+//	rotation(&root, &d, 0);
+//	printf("\n\n");
+//	rb_apply_by_level(root, rbapplylevel);
+//	printf("\n\n");
+	set_color(&four, 0);
 	rb_apply_by_level(root, rbapplylevel);
 
 	return (0);
