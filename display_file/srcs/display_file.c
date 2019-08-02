@@ -1,58 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <errno.h>
 
-#define BUF_SIZE 1
-
-void	ft_putstr(char *c)
+static __inline__ size_t	ft_strlen(char *__restrict__ str)
 {
-	int	i;
+	size_t len = 0;;
 
-	i = 0;
-	while (c[i])
-	{
-		write(1, &c[i], 1);
-		i++;
-	}
+	while (str[len])
+		++len;
+	return (len);
 }
 
-int	main(int argc, char **argv)
+static __inline__ void		ft_putstr(char *__restrict__ str)
 {
-	int	fd;
-	int	ret;
-	char	buf[BUF_SIZE + 1];
+	size_t	len;
+
+	len = ft_strlen(str);
+	if (fwrite((const void*)str, sizeof(char), len, stdout) != len)
+		perror(NULL);
+}
+
+int				main(int argc, char **argv)
+{
+	FILE	*stream = NULL;
+	size_t	ret = 0;
+	char	buffer[4096];
+	int	i = 1;
 
 	if (argc < 2)
 	{
 		ft_putstr("File name missing.\n");
-		return (1);
+		return (EXIT_FAILURE);
 	}
-	if (argc == 2)
+	while (i < argc)
 	{
-		fd = open(argv[1], O_RDONLY);
-		if (fd == -1)
+		stream = fopen(argv[i], "r");
+		if (!stream)
 		{
-			ft_putstr("Open failed\n");
-			return (1);
+			perror(argv[0]);
+			return (EXIT_FAILURE);
 		}
-		ret = read(fd, buf, BUF_SIZE);
-		while (ret)
+		while ((ret = fread((void*)buffer, sizeof(char), sizeof(buffer) - 1, stream)))
 		{
-			buf[ret] = '\0';
-			ft_putstr(buf);
-			ret = read(fd, buf, BUF_SIZE);
+			buffer[ret] = '\0';
+			ft_putstr(buffer);
 		}
-		if (close(fd) == -1)
+		if (fclose(stream))
 		{
-			ft_putstr("Close failed\n");
-			return (1);
+			perror(argv[0]);
+			return (EXIT_FAILURE);
 		}
+		++i;
 	}
-	if (argc > 2)
-	{
-		ft_putstr("Too many arguments.\n");
-		return (1);
-	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
