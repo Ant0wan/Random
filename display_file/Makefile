@@ -1,15 +1,18 @@
-NAME := ft_display_file
+NAME := display_file
 
-SRCS := srcs/display_file
+SRCS := srcs/display_file.c \
 
-WARNINGS := -g -fsanitize=address -O2 -fno-builtin
+CFLAGS += -ansi -Wall -Wextra -Werror -fno-builtin -O2
 
-all : 
-	gcc $(WARNINGS) $(SRCS).c -c -o $(SRCS).o
-	gcc $(WARNINGS) $(SRCS).o -o $(NAME)
+%.o:%.c Makefile
+	$(CC) -c $(WARNINGS) $(SRCS) $< -o $@
 
-clean :
-	/bin/rm -f $(SRCS).o
+all: $(NAME)
 
-fclean : clean
-	/bin/rm -f $(NAME)
+$(NAME): $(OBJECTS)
+	$(CC) $(WARNINGS) $(SRCS) $^ -o $@
+clean:
+	$(RM) $(OBJECTS)
+
+fclean: clean
+	$(RM) $(NAME)
