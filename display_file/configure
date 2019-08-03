@@ -1,0 +1,3 @@
+#!/bin/sh
+printf "configure and autotools tuto:\n"
+printf "https://developer.gnome.org/anjuta-build-tutorial/stable/create-autotools.html.en\n"
