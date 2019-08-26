@@ -16,7 +16,7 @@
 
 #define CHR_SRCH '\n'
 
-static inline t_list	*lst_select(int fd)
+static __inline__ t_list	*lst_select(int fd)
 {
 	static t_list	*lst;
 	t_list			*fd_lst;
@@ -37,7 +37,7 @@ static inline t_list	*lst_select(int fd)
 	return (fd_lst);
 }
 
-static inline int		feedline(t_list *lst, int ret, char **line, int has_chr)
+static __inline__ int		feedline(t_list *lst, int ret, char **line, int has_chr)
 {
 	char	*location;
 	char	*tmp;
@@ -58,7 +58,7 @@ static inline int		feedline(t_list *lst, int ret, char **line, int has_chr)
 	return (1);
 }
 
-static inline int		readl(t_list *lst, int fd, char **line)
+static __inline__ int		readl(t_list *lst, int fd, char **line)
 {
 	int		ret;
 	int		has_chr;
