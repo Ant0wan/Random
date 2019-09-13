@@ -124,6 +124,8 @@ Directory: `./ObfuscatedCCode/`
 
 #### Unachieved
 
+A small program that lists directory contents. [42 project]
+
 [![Build Status](https://travis-ci.com/Ant0wan/Ft_ls.svg?token=VdyQsq19sYjUnnsje5hY&branch=master)](https://travis-ci.com/Ant0wan/Ft_ls)
 
 Directory: `./Ft_ls-crossplatform/`
