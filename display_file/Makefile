@@ -1,18 +1,26 @@
 NAME := display_file
 
-SRCS := srcs/display_file.c \
+SRC := src/display_file.c \
 
-CFLAGS += -ansi -Wall -Wextra -Werror -fno-builtin -O2 -D_POSIX_C_SOURCE
+FLAGS += -Wall -Wextra -Werror -fno-builtin -O2 -D_POSIX_C_SOURCE
 
-%.o:%.c Makefile
-	$(CC) -c $(CFLAGS) $(SRCS) $< -o $@
+CFLAGS += $(FLAGS) -ansi
+
+LDFLAGS += $(FLAGS) -flto=full
+
+%.o:%.c
+	$(CC) $(SRC) -c $(CFLAGS) $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(SRCS) $^ -o $@
+	$(CC) $(SRC) $(LDLAGS) $^ -o $@
+
 clean:
 	$(RM) $(OBJECTS)
 
 fclean: clean
 	$(RM) $(NAME)
+
+re: fclean $(NAME)
+

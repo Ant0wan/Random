@@ -5,7 +5,7 @@
 int	main(int argc, char **argv)
 {
 	FILE	*stream = NULL;
-	char	buffer[31];
+	char	buffer[8192];
 	size_t	ret = 0;
 	int	i = 1;
 
