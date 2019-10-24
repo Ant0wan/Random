@@ -6,47 +6,6 @@
 
 The following files are some exercises in C. They are not compliant to the Norme and may not build nor be working.
 
----
-
-## Minitalk
-
-#### Unachieved
-
-Minitalk is a little program for transfering data using UNIX signals.
-
----
-
-## Linked lists exercises
-
-Some exercises to master linked lists (structures) in `./lists/linked_lists_exercises.c`
-
----
-
-## Ft_cat.c
-
-The `cat` command recoded without options.
-
-cat function recoded : ./cat/
-
-Directory: `./cat/`
-
----
-
-## Ft_display_file
-
-Program that displays the content of a file and handle basic errors.
-
-Directory: `./display_file/`
-
----
-
-## Tail
-
-#### Unachieved
-
-The `tail` command recoded for some of its basics. Do not work. Parsing unachieved.
-
-Directory: `./tail/`
 
 ---
 
@@ -98,25 +57,7 @@ long long        8
 long double      16
 va_list          4
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-
 ```
-
----
-
-## Binary Trees
-
-Functions from 42's day13 piscine C concerning binary trees.
-
-Directory: `./binarytrees/`
-
-
----
-
-## Obfuscated C Code
-
-Various obfuscated C code samples - just for fun !
-
-Directory: `./ObfuscatedCCode/`
 
 ---
 
@@ -134,3 +75,49 @@ A cross-platform version of `/bin/ls` giving same output as MacOs & GNU Coreutil
 
 It uses the [42Libc](https://github.com/Ant0wan/42Libc).
 
+---
+
+## Minitalk-archive
+
+#### Unachieved
+
+Minitalk is a little program for transfering data using UNIX signals.
+
+Directory: `./Minitalk-archive/`
+
+---
+
+## Obfuscated C Code
+
+Various obfuscated C code samples - just for fun !
+
+Directory: `./ObfuscatedCCode/`
+
+---
+
+## Tinycat
+
+The `cat` command recoded without options nor stdin and using streams.
+Program that displays the content of a file and handle basic errors.
+
+Directory: `./Tinycat/`
+
+---
+
+## Trash_n_old
+
+All old programs...
+
+Directory: `./Trash_n_old/`
+
+#### Linked lists exercises
+
+Some exercises to master linked lists (structures) in `./lists/linked_lists_exercises.c`
+
+#### Tail - Unachieved
+
+Attempt to recode the `tail` command and learn some of its basics. Does not work. Parsing unachieved.
+
+#### Binary Trees
+
+Functions from 42's day13 piscine C concerning binary trees.
