@@ -1,8 +1,8 @@
-NAME := display_file
+NAME := tinycat
 
 SRC := src/display_file.c \
 
-FLAGS += -Wall -Wextra -Werror -fno-builtin -O2 -D_POSIX_C_SOURCE
+FLAGS += -Wall -Wextra -Werror -O2 -D_POSIX_C_SOURCE
 
 CFLAGS += $(FLAGS) -ansi
 
