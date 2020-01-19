@@ -1,6 +1,6 @@
 NAME := tinycat
 
-SRC := src/display_file.c \
+SRC := display_file.c
 
 FLAGS += -Wall -Wextra -Werror -O2 -D_POSIX_C_SOURCE
 
