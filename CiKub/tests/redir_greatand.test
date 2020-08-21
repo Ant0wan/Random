@@ -1,0 +1,5 @@
+plop=auteur-
+echo ok >&auteur-
+echo ok >&$plop
+echo ok >&$plop-
+exit

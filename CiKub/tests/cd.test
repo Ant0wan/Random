@@ -1,0 +1,194 @@
+cd ../.././.././.././
+echo n1 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n2 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+export CDPTAH=/usr:/
+echo n3 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P /lib
+echo n4 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n5 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd ~/
+echo n6 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd
+echo n7 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+unset HOME
+echo n8 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P ~/
+echo n9 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd --
+echo n10 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd ../
+echo n11 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd /../
+echo n12 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd /./
+echo n13 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -L -
+echo n14 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P -
+echo n15 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd /root
+echo n16 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+export PWD=
+echo n17 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd test/
+echo n18 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd //////
+echo n19 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd ...............
+echo n20 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd .../././.../
+echo n21 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd /bin
+echo n22 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -L /lib
+echo n23 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n24 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd
+echo n25 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+PWD=toto
+echo n26 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n27 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd /../
+echo n28 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd ..
+echo n29 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd .
+echo n30 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P -
+echo n31 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n32 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+HOME=plop
+echo n33 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd ~/
+echo n34 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd home:$HOME
+echo n35 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd src/
+echo n36 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+OLDPWD=
+echo n37 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n38 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n39 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd
+echo n40 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+unset OLDPWD
+echo n41 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -L -
+echo n42 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P -
+echo n43 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n44 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+PWD=/:/home/plop
+echo n45 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+CDPATH=/
+echo n46 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P lib
+echo n47 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+PWD=
+echo n48 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+OLDPWD=
+echo n49 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+HOME=
+echo n50 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n51 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd lib
+echo n52 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd ../
+echo n53 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd /../
+echo n54 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P .
+echo n55 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+CDPATH=/lib
+echo n56 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P apg
+echo n57 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P ~/
+echo n58 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -P cdpath:$CDPATH
+echo n59 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+CDPATH=/../../../../root/./../
+echo n60 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -L lib
+echo n61 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -L home/
+HOME=.././
+echo n62 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd -
+echo n63 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+cd ~/
+echo n64 $? "home:$HOME pwd:$PWD old:$OLDPWD cdpath:$CDPATH"
+/bin/pwd
+exit

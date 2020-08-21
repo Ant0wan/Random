@@ -1,0 +1,19 @@
+echo '
+echo \
+echo "
+echo "'
+echo '"
+echo \"
+echo \'
+echo \H\e\l\l\o\!
+echo "ok
+echo '''
+echo "'"
+echo '"\'
+echo //////
+echo /"/
+echo \$HOME
+echo \\$HOME
+echo \\\ $HOME
+echo \\\$HOME
+exit
