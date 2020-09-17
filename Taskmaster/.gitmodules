@@ -1,0 +1,3 @@
+[submodule "Json-to-C"]
+	path = Json-to-C
+	url = https://github.com/Ant0wan/Json-to-C
