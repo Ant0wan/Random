@@ -1,0 +1,144 @@
+---
+- name: HA-Proxy on Etcd Nodes
+  tags: haproxy
+  gather_facts: no
+  hosts: etcd
+  order: sorted
+  become: yes
+  become_method: sudo
+  roles:
+    - role: haproxy
+      vars:
+        endpoint: <ip>
+
+- name: Heartbeat on Etcd Nodes
+  tags: heartbeat
+  gather_facts: no
+  hosts: etcd
+  order: sorted
+  become: yes
+  become_method: sudo
+  roles:
+    - role: heartbeat
+      vars:
+        endpoint: <ip>
+        multicast: <ip>
+
+- name: Containers on Hosts
+  tags: kubernetes
+  gather_facts: yes
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role: kernel
+    - role: docker
+      vars:
+        docker_version: 5:19.03.15~3-0~ubuntu-bionic
+    - role: kubernetes
+
+- name:  Etcd Cluster
+  tags: etcd
+  hosts: etcd
+  order: sorted
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  roles:
+    - role: etcd
+      vars:
+        endpoint: <ip>
+
+- name: Control Planes
+  throttle: 1
+  tags:
+    - master
+    - "control plane"
+  hosts: master
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  roles:
+    - role: controlplane
+      vars:
+        serviceSubnet: "10.96.0.0/12"
+        podSubnet: "10.244.0.0/16"
+
+- name: Container Network Interface
+  tags: cni
+  hosts: "{{ groups['master'][0] }}"
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  roles:
+    - role: cni
+      vars:
+        cni: flannel
+        # flannel, weave, calico
+        #cni_version: "3.11" #if using Calico
+
+- name: App Load Balancer - MetalLB
+  tags:
+    - metallb
+    - loadbalancer
+  hosts: "{{ groups['master'][0] }}"
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  roles:
+    - role: loadbalancer
+      vars:
+        metallb_version: "0.9.6"
+        addresses: [<start_ip>,<end_ip>]
+
+- name: Worker Nodes
+  tags: worker
+  hosts: worker
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  roles:
+    - role: worker
+
+- name: Label Nodes
+  tags: label
+  hosts: "{{ groups['master'][0] }}"
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Add worker labels
+      command: "kubectl label node {{ item }} node-role.kubernetes.io/worker=w"
+      loop: "{{ groups['worker'] }}"
+
+- name: VMWare vSphere Cloud Provider
+  tags: cpi
+  hosts: "{{ groups['master'][0] }}"
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  roles:
+    - role: cpi
+      vars:
+        worker_count: "{{ groups['worker'] | length }}"
+        master_count: "{{ groups['master'] | length }}"
+
+- name: VMWare vSphere Container Storage Interface
+  tags: csi
+  hosts: "{{ groups['master'][0] }}"
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  roles:
+    - role: csi
+      vars:
+        cluster_id: "Dev-Cluster"
+
+- name: Create Default StorageClass
+  tags: storageclass
+  hosts: "{{ groups['master'][0] }}"
+  gather_facts: no
+  become: yes
+  become_method: sudo
+  roles:
+    - role: storageclass

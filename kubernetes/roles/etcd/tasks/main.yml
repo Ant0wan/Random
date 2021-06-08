@@ -1,0 +1,92 @@
+---
+- name: Replace Systemd with the Cgroup Driver of Container Runtime
+  copy:
+    src: 20-etcd-service-manager.conf
+    dest: /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
+    owner: root
+    group: root
+    mode: '0640'
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Systemd Reread Configuration
+  systemd:
+    daemon_reload: yes
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Systemd Enable and Restart Kubelet
+  systemd:
+    name: kubelet
+    enabled: yes
+    state: restarted
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Kubeadm Configuration Files
+  include: kubecfg.yml
+  when: vm_hostname == groups['etcd'] | first
+
+- name: Certificates for Etcd Cluster Peers
+  include: certs.yml
+  when: vm_hostname == groups['etcd'] | first
+
+- name: Install sshpass for remote copy
+  tags: sshpass
+  apt:
+    name: sshpass
+    state: latest
+    update_cache: yes
+
+- name: Copy PKI remote-to-remote
+  when: inventory_hostname != groups['etcd'][0]
+  tags: pki-copy
+  synchronize:
+    dest: "/tmp/"
+    src: "/tmp/{{ item }}"
+    mode: push
+  delegate_to: "{{ groups['etcd'][0] }}"
+  register: syncfile
+  with_items:
+   - "{{ ansible_host }}"
+
+- name: Move PKI to /etc/kubernetes
+  tags: pki-move
+  ansible.posix.synchronize:
+    src: "/tmp/{{ ansible_host }}/pki/"
+    dest: "/etc/kubernetes/pki/"
+  delegate_to: "{{ inventory_hostname }}"
+  when: inventory_hostname != groups['etcd'][0]
+
+- name: Save ca.crt
+  tags: pki-save
+  shell: "cp -Rp /etc/kubernetes/pki/etcd/ca.crt /root/"
+  when: inventory_hostname == groups['etcd'][0]
+
+- name: Save apiserver-etcd-client.crt
+  tags: pki-save
+  shell: "cp -Rp /etc/kubernetes/pki/apiserver-etcd-client.crt /root/"
+  when: inventory_hostname == groups['etcd'][0]
+
+- name: Save certs on first host
+  tags: pki-save
+  shell: "cp -Rp /etc/kubernetes/pki/apiserver-etcd-client.key /root/"
+  when: inventory_hostname == groups['etcd'][0]
+
+- name: Init etcd cluster
+  tags: init-etcd
+  shell: "kubeadm init phase etcd local --config=/tmp/{{ ansible_host }}/kubeadmcfg.yaml"
+
+- name: Test etcd cluster
+  command: "docker run --rm -it --net host -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:3.4.13-0 etcdctl --cert /etc/kubernetes/pki/etcd/peer.crt --key /etc/kubernetes/pki/etcd/peer.key --cacert /etc/kubernetes/pki/etcd/ca.crt --endpoints https://{{ endpoint }}:2379 endpoint health --cluster"
+  retries: 30
+  delay: 10
+  register: result_test_etcd
+  until: result_test_etcd.rc == 0
+  when: inventory_hostname == groups['etcd'][0]

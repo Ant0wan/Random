@@ -1,0 +1,21 @@
+---
+# Flannel
+- name: Apply Flannel manifest
+  shell: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
+  when: cni == 'flannel'
+
+
+# Weave
+- name: Get Weave manifest
+  shell: "wget https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n') -O /root/kube-weave.yaml"
+  when: cni == 'weave'
+
+- name: Apply Weave manifest
+  shell: kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f /root/kube-weave.yaml
+  when: cni == 'weave'
+
+
+# Calico
+- name: Get Calico manifest
+  shell: "kubectl apply -f https://docs.projectcalico.org/v{{ cni_version }}/manifests/calico.yaml"
+  when: cni == 'calico'

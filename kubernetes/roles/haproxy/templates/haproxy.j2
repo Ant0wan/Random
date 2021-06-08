@@ -1,0 +1,25 @@
+global
+    user haproxy
+    group haproxy
+
+defaults
+    mode http
+    log global
+    retries 2
+    timeout connect 3000ms
+    timeout server 5000ms
+    timeout client 5000ms
+
+frontend kubernetes
+    bind {{ endpoint }}:6443
+    option tcplog
+    mode tcp
+    default_backend kubernetes-master-nodes
+
+backend kubernetes-master-nodes
+    mode tcp
+    balance roundrobin
+    option tcp-check
+{% for host in groups['master'] -%} 
+" "   server {{ host }} {{ hostvars[host]['guest_custom_ip'] }}:6443 check fall 3 rise 2\n
+{%- endfor %}

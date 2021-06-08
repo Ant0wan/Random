@@ -1,0 +1,19 @@
+network:
+  version: 2
+  ethernets:
+    ens192:
+      dhcp4: no
+      addresses:
+        - {{ guest_custom_ip }}/{{ network.static_ip.netmask }}
+      gateway4: {{ network.static_ip.gateway }}
+      nameservers:
+{% if network.static_ip.dns_search|length > 0 %}
+        search:
+{% for search in network.static_ip.dns_search %}
+          - {{ search }}
+{% endfor %}
+{% endif %}
+        addresses:
+{% for server in network.static_ip.dns_servers %}
+          - {{ server }}
+{% endfor %}

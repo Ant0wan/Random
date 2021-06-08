@@ -1,0 +1,19 @@
+---
+- name: Disable Swap
+  script: swapoff.sh
+
+- name: Enable IPv4 IP Forwarding and IPtables Filtering on Bridge Devices
+  copy:
+    src: kubernetes.conf
+    dest: /etc/sysctl.d/kubernetes.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: no
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Load Kernel Parameters
+  shell: sysctl --system

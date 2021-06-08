@@ -1,0 +1,32 @@
+---
+- name: Get MetalLB namespace manifest
+  get_url:
+    url: "https://raw.githubusercontent.com/metallb/metallb/v{{ metallb_version }}/manifests/namespace.yaml"
+    dest: /root/namespace.yaml
+    mode: '0664'
+
+- name: Apply LetalLB namespace manifest
+  shell: kubectl apply -f /root/namespace.yaml
+
+- name: Get MetalLB manifest
+  get_url:
+    url: "https://raw.githubusercontent.com/metallb/metallb/v{{ metallb_version }}/manifests/metallb.yaml"
+    dest: /root/metallb.yaml
+    mode: '0664'
+
+- name: Apply Metallb manifest
+  shell: kubectl apply -f /root/metallb.yaml
+
+- name: Create generic secret
+  shell: kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+
+- name: Generate Metallb config file
+  template:
+    src: metallb-config.yaml.j2
+    dest: "/root/metallb-config.yaml"
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Apply Metallb config
+  shell: kubectl apply -f /root/metallb-config.yaml

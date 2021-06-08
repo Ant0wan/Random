@@ -1,0 +1,22 @@
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: InitConfiguration
+nodeRegistration:
+  kubeletExtraArgs:
+    cloud-provider: external
+---
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+useHyperKubeImage: false
+controlPlaneEndpoint: "{{ hostvars[ groups['master'][0] ]['guest_custom_ip'] }}:6443"
+networking:
+  serviceSubnet: "{{ serviceSubnet }}"
+  podSubnet: "{{ podSubnet }}"
+etcd:
+    external:
+        endpoints:
+{% for node in groups['etcd'] %}
+        - https://{{ hostvars[node]['guest_custom_ip'] }}:2379
+{% endfor %}
+        caFile: /etc/kubernetes/pki/etcd/ca.crt
+        certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
+        keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key

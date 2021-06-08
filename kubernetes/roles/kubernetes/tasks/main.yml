@@ -1,0 +1,77 @@
+---
+- name: Get Google Cloud Packages GPG Key
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /tmp/google-key.gpg
+    mode: '0644'
+
+- name: Add Google GPG Key to Apt-key
+  shell: cat /tmp/google-key.gpg | apt-key add -
+
+- name: Clean /tmp
+  file:
+    path: /tmp/google-key.gpg
+    state: absent
+
+- name: Add Repository to Apt Sources List
+  copy:
+    src: kubernetes.list
+    dest: /etc/apt/sources.list.d/kubernetes.list
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Install Kubelet
+  apt:
+    name: kubelet
+    state: present
+    update_cache: yes
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Hold Kubelet
+  dpkg_selections:
+    name: kubelet
+    selection: hold
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Install Kubeadm
+  apt:
+    name: kubeadm
+    state: present
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Hold Kubeadm
+  dpkg_selections:
+    name: kubeadm
+    selection: hold
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Install Kubectl
+  apt:
+    name: kubectl
+    state: present
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed
+
+- name: Hold Kubectl
+  dpkg_selections:
+    name: kubectl
+    selection: hold
+  register: result
+  retries: 3
+  delay: 10
+  until: result is not failed

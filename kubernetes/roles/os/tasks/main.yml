@@ -1,0 +1,227 @@
+---
+- name: Ensure Mandatory Connection Parameters are Given
+  fail:
+    msg: "At least one of 'ssh_keys' and 'password' must be given"
+  when: ssh_keys is undefined and password is undefined
+  run_once: true
+
+- name: Deploy OVA File
+  tags: deploy-ova
+  community.vmware.vmware_deploy_ovf:
+    hostname: "{{ vcenter_hostname | default(omit) }}"
+    username: "{{ vcenter_username | default(omit) }}"
+    password: "{{ vcenter_password | default(omit) }}"
+    validate_certs: no
+    datastore: "{{ guest_datastore | default(omit) }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    networks: "{u'VM Network':u'{{ network.name | default(omit) }}'}"
+    name: "{{ vm_guestname | default(omit) }}"
+    ova: "{{ ova_file | default(omit) }}"
+    properties:
+      hostname: "{{ vm_hostname | default(omit) }}"
+      user-data: "{{ lookup('template', 'user-data.j2') | b64encode }}"
+    wait_for_ip_address: false
+    power_on: no
+  delegate_to: localhost
+
+- name: Move Virtual Machine
+  community.vmware.vmware_guest_move:
+    hostname: "{{ vcenter_hostname | default(omit) }}"
+    username: "{{ vcenter_username | default(omit) }}"
+    password: "{{ vcenter_password | default(omit) }}"
+    validate_certs: no
+    datacenter: "{{ vcenter_datacenter }}"
+    name: "{{ vm_guestname | default(omit) }}"
+    dest_folder: "{{ vm_folder | default(omit) }}"
+  delegate_to: localhost
+
+- name: Configure Hardware CPU, Memory, ESX, Customs
+  tags: configure-hardware
+  vmware_guest:
+    hostname: "{{ vcenter_hostname | default(omit) }}"
+    username: "{{ vcenter_username | default(omit) }}"
+    password: "{{ vcenter_password | default(omit) }}"
+    validate_certs: no
+    name: "{{ vm_guestname | default(omit) }}"
+    esxi_hostname: esx_hostname
+    hardware:
+      num_cpus: "{{ guest_vcpu | default(omit) }}"
+      memory_mb: "{{ guest_memory | default(omit) }}"
+      hotadd_cpu: true
+      hotremove_cpu: false
+      hotadd_memory: true
+      version: 15
+      scsi: 'paravirtual'
+    customvalues:
+      - key: "disk.EnableUUID"
+        value: "TRUE"
+    state: present
+  delegate_to: localhost
+
+- name: Configure Disks
+  tags: configure-vm
+  community.vmware.vmware_guest_disk:
+    hostname: "{{ vcenter_hostname | default(omit) }}"
+    username: "{{ vcenter_username | default(omit) }}"
+    password: "{{ vcenter_password | default(omit) }}"
+    validate_certs: no
+    datacenter: "{{ vcenter_datacenter }}"
+    name: "{{ vm_guestname | default(omit) }}"
+    disk:
+      - size_gb: "{{ guest_disk_size | default(omit) }}"
+        datastore: "{{ guest_datastore | default(omit) }}"
+        scsi_controller: 0
+        scsi_type: 'paravirtual'
+        unit_number: 0
+        sharing: yes
+        type: 'eagerzeroedthick'
+  delegate_to: localhost
+
+- name: Start Unreacheable Hosts for File Manipulation
+  tags: start-vm
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname | default(omit) }}"
+    username: "{{ vcenter_username | default(omit) }}"
+    password: "{{ vcenter_password | default(omit) }}"
+    validate_certs: no
+    name: "{{ vm_guestname }}"
+    state: poweredon
+  delegate_to: localhost
+
+- name: Wait for VMware Tools to Become Available
+  community.vmware.vmware_guest_tools_wait:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    name: "{{ vm_guestname }}"
+    folder: "{{ vm_folder | default(omit) }}"
+  delegate_to: localhost
+
+- name: Remove Cloud-init Network Configuration File
+  throttle: 1
+  community.vmware.vmware_vm_shell:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    datacenter: "{{ vcenter_datacenter }}"
+    folder: "{{ vm_folder | default(omit) }}"
+    vm_id: "{{ vm_guestname }}"
+    vm_username: "{{ ansible_user }}"
+    vm_password: "{{ ansible_password }}"
+    vm_shell: "/usr/bin/sudo"
+    vm_shell_args: "/bin/rm -f /etc/netplan/50-cloud-init.yaml"
+    vm_shell_cwd: "/etc/netplan/"
+    wait_for_process: True
+  delegate_to: localhost
+  register: shell_command_output
+  until: shell_command_output.changed != false
+  retries: 30
+  delay: 10
+
+- name: Create Network Configuration File
+  throttle: 1
+  community.vmware.vmware_vm_shell:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    datacenter: "{{ vcenter_datacenter }}"
+    folder: "{{ vm_folder | default(omit) }}"
+    vm_id: "{{ vm_guestname }}"
+    vm_username: "{{ ansible_user }}"
+    vm_password: "{{ ansible_password }}"
+    vm_shell: "/usr/bin/sudo"
+    vm_shell_args: "/bin/echo '{{ lookup('template', 'netplan-static-ip.yaml.j2') }}' | /usr/bin/sudo /usr/bin/tee /etc/netplan/60-static-ip.yaml"
+    vm_shell_cwd: "/etc/netplan/"
+    wait_for_process: True
+  delegate_to: localhost
+  register: shell_command_output
+
+- name: Change Access Mode of Configuration File
+  throttle: 1
+  community.vmware.vmware_vm_shell:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    datacenter: "{{ vcenter_datacenter }}"
+    folder: "{{ vm_folder | default(omit) }}"
+    vm_id: "{{ vm_guestname }}"
+    vm_username: "{{ ansible_user }}"
+    vm_password: "{{ ansible_password }}"
+    vm_shell: "/usr/bin/sudo"
+    vm_shell_args: "/bin/chmod 0644 /etc/netplan/60-static-ip.yaml"
+    vm_shell_cwd: "/etc/netplan/"
+    wait_for_process: True
+  delegate_to: localhost
+  register: shell_command_output
+
+- name: Restart Network Services
+  throttle: 1
+  community.vmware.vmware_vm_shell:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    datacenter: "{{ vcenter_datacenter }}"
+    folder: "{{ vm_folder | default(omit) }}"
+    vm_id: "{{ vm_guestname }}"
+    vm_username: "{{ ansible_user }}"
+    vm_password: "{{ ansible_password }}"
+    vm_shell: "/usr/bin/sudo"
+    vm_shell_args: "/usr/sbin/netplan apply"
+    vm_shell_cwd: "/"
+    wait_for_process: True
+  delegate_to: localhost
+  register: shell_command_output
+
+- name: Set Virtual Machine State to Poweroff
+  throttle: 1
+  community.vmware.vmware_guest_powerstate:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: no
+    folder: "{{ vm_folder | default(omit) }}"
+    name: "{{ vm_guestname | default(omit) }}"
+    state: powered-off
+  delegate_to: localhost
+  register: deploy
+
+- name: Configure Hardware BIOS, CDROM
+  tags: configure-hardware
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname | default(omit) }}"
+    username: "{{ vcenter_username | default(omit) }}"
+    password: "{{ vcenter_password | default(omit) }}"
+    validate_certs: no
+    name: "{{ vm_guestname | default(omit) }}"
+    hardware:
+      boot_firmware: "bios"
+    cdrom:
+    - controller_number: 1
+      unit_number: 0
+      state: absent
+      type: none
+  delegate_to: localhost
+
+- name: Start Reacheable Hosts
+  tags: start-vm
+  community.vmware.vmware_guest:
+    hostname: "{{ vcenter_hostname | default(omit) }}"
+    username: "{{ vcenter_username | default(omit) }}"
+    password: "{{ vcenter_password | default(omit) }}"
+    validate_certs: no
+    name: "{{ vm_guestname | default(omit) }}"
+    state: poweredon
+  delegate_to: localhost
+
+- name: Ensure IP Address is Reachable
+  wait_for:
+    host: "{{ guest_custom_ip }}"
+    port: 22
+    delay: 30
+    timeout: 300
+  delegate_to: localhost

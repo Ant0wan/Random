@@ -1,0 +1,128 @@
+---
+- name: Creates directory for certs
+  file:
+    path: /etc/kubernetes/pki/etcd/
+    state: directory
+
+- name: Install sshpass for remote copy
+  tags: sshpass
+  apt:
+    name: sshpass
+    state: latest
+    update_cache: yes
+
+- name: Copy ca.crt from etcd leader to masters
+  synchronize:
+    dest: "/etc/kubernetes/pki/etcd/"
+    src: "/root/{{ item }}"
+    mode: push
+  delegate_to: "{{ groups['etcd'][0] }}"
+  register: syncfile
+  with_items:
+   - "ca.crt"
+  when: inventory_hostname == groups['master'][0]
+
+- name: Copy apiserver-etcd-client from etcd leader to masters
+  synchronize:
+    dest: "/etc/kubernetes/pki/"
+    src: "/root/{{ item }}"
+    mode: push
+  delegate_to: "{{ groups['etcd'][0] }}"
+  register: syncfile
+  with_items:
+   - "apiserver-etcd-client.crt"
+   - "apiserver-etcd-client.key"
+  when: inventory_hostname == groups['master'][0]
+
+- name: Generate master node config files
+  template:
+    src: kubeadm-config.yaml.j2
+    dest: "/root/kubeadm-config.yaml"
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Init cluster first master node
+  shell: "kubeadm init --config /root/kubeadm-config.yaml --upload-certs 2> /root/stderr_log  | tee /root/join /root/stdout_log"
+  when: inventory_hostname == groups['master'][0]
+
+- name: Create .kube directory
+  file:
+    path: /root/.kube
+    state: directory
+    owner: root
+    group: root
+    mode: 0775
+    recurse: yes
+  when: inventory_hostname == groups['master'][0]
+
+- name: Copy admin.conf to .kube directory
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /root/.kube/config
+    follow: yes
+    owner: root
+    group: root
+    remote_src: yes
+  when: inventory_hostname == groups['master'][0]
+
+- name: Generate discovery file
+  shell: "kubectl -n kube-public get configmap cluster-info -o jsonpath='{.data.kubeconfig}' > /root/discovery.yaml"
+  when: inventory_hostname == groups['master'][0]
+
+- name: Create TLS token
+  tags:
+    - master
+    - worker
+  command: "kubeadm token create" 
+  register: tlstoken 
+  when: inventory_hostname == groups['master'][0]
+
+- name: Store TLS token
+  tags:
+    - master
+    - worker
+  set_fact:
+    tlsbootstraptoken: "{{ tlstoken.stdout_lines[0] }}"
+  when: inventory_hostname == groups['master'][0]
+
+- name: Other master nodes to get certs
+  synchronize:
+    dest: "/etc/kubernetes/pki/"
+    src: "/etc/kubernetes/pki/"
+    mode: push
+  delegate_to: "{{ groups['master'][0] }}"
+  register: syncfile
+  when: inventory_hostname != groups['master'][0]
+
+- name: Delete apiserver files
+  file:
+    path: "/etc/kubernetes/pki/{{ item }}"
+    state: absent
+  with_items:
+    - "apiserver.crt"
+    - "apiserver.key"
+  when: inventory_hostname != groups['master'][0]
+
+- name: Init cluster master nodes
+  shell: "kubeadm init --config /root/kubeadm-config.yaml"
+  register: master_logs
+  when: inventory_hostname != groups['master'][0]
+
+#- name: Get worker join command
+#  shell: "kubeadm token create --print-join-command"
+#  register: join_command_raw
+#
+#- name: Store worker join command
+#  set_fact:
+#    join_command: "{{ join_command_raw.stdout_lines[0] }}"
+
+#- name: Get certificate-key
+#  tags: master
+#  shell: "kubeadm init phase upload-certs --upload-certs --config /root/kubeadm-config.yaml"
+#  register: cert_key_raw
+#
+#- name: Store certificate-key
+#  tags: master
+#  set_fact:
+#    cert_key: "{{ cert_key_raw.stdout_lines[2] }}"

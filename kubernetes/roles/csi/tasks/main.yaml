@@ -1,0 +1,54 @@
+---
+#- name: Check master node taint
+#  shell: '! kubectl describe nodes | egrep "Taints:|Name:" | awk "/worker/{getline; print}"'
+#  register: taint
+#
+#- name: Change master taints if needed
+#  when: taint.rc != 0
+#  shell: "kubectl taint nodes {{ inventory_hostname }} node-role.kubernetes.io/master=:NoSchedule"
+
+- name: Generate storage configuration file
+  template:
+    src: csi-vsphere.conf.j2
+    dest: "/etc/kubernetes/csi-vsphere.conf"
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Apply csi-vsphere.conf
+  command: "kubectl create secret generic vsphere-config-secret --from-file=/etc/kubernetes/csi-vsphere.conf --namespace=kube-system"
+
+- name: Check secret
+  command: "kubectl get secret vsphere-config-secret --namespace=kube-system"
+
+- name: Apply controller role-based access control manifest
+  command: "kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/manifests/v2.0.1/vsphere-67u3/rbac/vsphere-csi-controller-rbac.yaml"
+
+- name: Apply controller deployment manifest
+  command: "kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/manifests/v2.0.1/vsphere-67u3/deploy/vsphere-csi-controller-deployment.yaml"
+
+- name: Apply node daemon set manifest
+  command: "kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/vsphere-csi-driver/master/manifests/v2.0.1/vsphere-67u3/deploy/vsphere-csi-node-ds.yaml"
+
+- name: Check deployment
+  command: "kubectl get deployment --namespace=kube-system"
+
+- name: Check CSI drivers settings - Attach Required
+  tags: csi-settings
+  shell: "kubectl describe csidrivers | egrep 'Attach Required' | egrep true"
+  retries: 9
+  delay: 5
+  register: res_attach
+  until: res_attach.rc == 0
+
+- name: Check CSI drivers settings - Pod Info On Mount
+  tags: csi-settings
+  shell: "kubectl describe csidrivers | egrep 'Pod Info On Mount' | egrep false"
+  retries: 9
+  delay: 5
+  register: res_mount
+  until: res_mount.rc == 0
+
+- name: Check CSI nodes
+  tags: csi-settings
+  command: "kubectl get CSINode"

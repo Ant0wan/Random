@@ -1,0 +1,21 @@
+# VM credentials and commons
+ansible_user: <username>
+ansible_password: <password>
+ansible_ssh_extra_args: -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+guest_id: 'ubuntu64Guest'
+ansible_python_interpreter: /usr/bin/python3
+folder_short: <folder>
+vm_folder: "/{{ vcenter_datacenter }}/vm/{{ folder_short }}"
+default_datastore: <datastore>
+
+# vCenter credentials
+vcenter_ip: <ip>
+vcenter_hostname: <hostname>
+vcenter_username: <username>
+vcenter_password: <password>
+vcenter_datacenter: <datacenter>
+
+# ESXi credentials
+esx_hostname: <hostname>
+esx_username: <username>
+esx_password: <password>

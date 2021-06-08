@@ -1,0 +1,18 @@
+[Global]
+user = "{{ vcenter_username }}"
+password = "{{ vcenter_password }}"
+port = "443"
+insecure-flag = "1"
+
+[VirtualCenter "{{vcenter_hostname}}"]
+datacenters = "{{ vcenter_datacenter }}"
+
+[Workspace]
+server = "{{ vcenter_ip }}"
+datacenter = "{{ vcenter_datacenter }}"
+default-datastore = "<Datastore>"
+resourcepool-path = "{{ vcenter_datacenter }}/Resources"
+folder = "{{ folder_short }}"
+
+[Disk]
+scsicontrollertype = pvscsi

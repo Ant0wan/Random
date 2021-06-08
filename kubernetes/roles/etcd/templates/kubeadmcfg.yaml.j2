@@ -1,0 +1,16 @@
+apiVersion: "kubeadm.k8s.io/v1beta2"
+kind: ClusterConfiguration
+etcd:
+    local:
+        serverCertSANs:
+        - "{{ hostvars[item]['guest_custom_ip'] }}"
+        peerCertSANs:
+        - "{{ hostvars[item]['guest_custom_ip'] }}"
+        extraArgs:
+            initial-cluster: {% for name in groups['etcd'] %}{{ name }}=https://{{ hostvars[name]['guest_custom_ip'] }}:2380{{ "," if not loop.last else "\n" }}{% endfor %}
+            initial-cluster-state: new
+            name: {{ item }}
+            listen-peer-urls: https://{{ hostvars[item]['guest_custom_ip'] }}:2380
+            listen-client-urls: https://{{ hostvars[item]['guest_custom_ip'] }}:2379
+            advertise-client-urls: https://{{ hostvars[item]['guest_custom_ip'] }}:2379
+            initial-advertise-peer-urls: https://{{ hostvars[item]['guest_custom_ip'] }}:2380

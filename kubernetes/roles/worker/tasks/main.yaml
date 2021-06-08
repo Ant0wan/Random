@@ -1,0 +1,24 @@
+---
+- name: Get a copy of discovery.yaml
+  tags: discovery
+  synchronize:
+    dest: "/etc/kubernetes/"
+    src: "/root/{{ item }}"
+    mode: push
+  delegate_to: "{{ groups['master'][0] }}"
+  register: syncfile
+  with_items:
+   - "discovery.yaml"
+
+- name: Generate kubeadm init worker file
+  tags: kubeadminitworker
+  template:
+    src: kubeadminitworker.yaml.j2
+    dest: "/etc/kubernetes/kubeadminitworker.yaml"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Join workers
+  command: "kubeadm join --config /etc/kubernetes/kubeadminitworker.yaml"
+  #  shell: "{{ hostvars[groups['master'][0]]['join_command'] }}"

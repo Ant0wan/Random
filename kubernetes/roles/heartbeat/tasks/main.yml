@@ -1,0 +1,45 @@
+---
+- name: Install Heartbeat
+  apt:
+    name: heartbeat
+    state: present
+    update_cache: yes
+
+- name: Enable Heartbeat
+  systemd:
+    name: heartbeat
+    enabled: yes
+
+- name: Set Authentification
+  shell: echo -n securepass | md5sum | cut -d ' ' -f1 | xargs echo -e "auth 1\n1 md5" | tee /etc/ha.d/authkeys
+
+- name: Authentification File Permission
+  file:
+    path: /etc/ha.d/authkeys
+    state: touch
+    mode: '600'
+
+- name: Heartbeat Configuration File
+  shell: echo "{{ lookup('template','ha.cf.j2') }}" > /etc/ha.d/ha.cf
+
+- name: Set Haresources
+  shell: echo "{{ play_hosts | first }} {{ endpoint }}" > /etc/ha.d/haresources
+
+- name: Restart Heartbeat Service
+  systemd:
+    name: heartbeat
+    state: restarted
+
+    #- name: Test Heartbeat Service
+    #  command: "nc -vd {{ endpoint }} 6443"
+    #  retries: 3
+    #  delay: 3
+    #  register: result
+    #  until: result.rc == 0
+
+- name: Test Heartbeat Service
+  wait_for:
+    host: "{{ endpoint }}"
+    port: 6443
+    delay: 2
+    timeout: 300

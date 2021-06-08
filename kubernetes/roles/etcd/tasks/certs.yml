@@ -1,0 +1,21 @@
+---
+- name: Template script that generate etcd certs
+  template:
+    src: certs.sh.j2
+    dest: /tmp/certs.sh
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Generate etcd certs
+  shell: bash /tmp/certs.sh
+
+- name: Delete cert script
+  file:
+    path: /tmp/certs.sh
+    state: absent
+
+- name: Clean up certs that should not be copied off first host
+  shell: find /tmp/{{ hostvars[item]['guest_custom_ip']  }} -name ca.key -type f -delete
+  loop: "{{ groups['etcd'] }}"
+  when: item != groups['etcd'] | first

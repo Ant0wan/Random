@@ -1,0 +1,11 @@
+---
+- name: Generate storage class configuration file on control plane endpoint
+  template:
+    src: default-storageclass.yaml.j2
+    dest: "/root/default-storageclass.yaml"
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Apply default storage class manifest
+  command: "kubectl apply -f /root/default-storageclass.yaml"

@@ -1,0 +1,30 @@
+#       keepalive: how many seconds between heartbeats
+#
+keepalive 2
+#
+#       deadtime: seconds-to-declare-host-dead
+#
+deadtime 10
+#
+#       What UDP port to use for udp or ppp-udp communication?
+#
+udpport        694
+bcast ens192
+mcast ens192 {{ multicast }} 694 1 0
+{% for host in groups['etcd'] %}
+{% if vm_hostname not in host %}
+ucast ens192 {{ hostvars[host]['guest_custom_ip'] }}
+{% endif %}
+{% endfor %}
+#       What interfaces to heartbeat over?
+udp     ens192
+#
+#       Facility to use for syslog()/logger (alternative to log/debugfile)
+#
+logfacility     local0
+#
+#       Tell what machines are in the cluster
+#       node    nodename ...    -- must match uname -n
+{% for host in groups['etcd'] %}
+node    {{ host }}
+{% endfor %}

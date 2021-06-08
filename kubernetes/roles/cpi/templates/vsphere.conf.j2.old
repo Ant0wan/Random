@@ -1,0 +1,15 @@
+global:
+  port: 443
+  insecureFlag: true
+  secretName: cpi-global-secret
+  secretNamespace: kube-system
+
+vcenter:
+  tenant:
+    server: {{ vcenter_hostname }}
+    datacenters:
+      - {{ vcenter_datacenter }}
+
+labels:
+  region: k8s-region
+  zone: k8s-zone

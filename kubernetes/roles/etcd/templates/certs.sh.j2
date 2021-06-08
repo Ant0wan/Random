@@ -1,0 +1,13 @@
+kubeadm init phase certs etcd-ca
+
+{% for node in groups['etcd']|reverse %}
+kubeadm init phase certs etcd-server --config=/tmp/{{ hostvars[node]['guest_custom_ip']  }}/kubeadmcfg.yaml
+kubeadm init phase certs etcd-peer --config=/tmp/{{ hostvars[node]['guest_custom_ip']  }}/kubeadmcfg.yaml
+kubeadm init phase certs etcd-healthcheck-client --config=/tmp/{{ hostvars[node]['guest_custom_ip']  }}/kubeadmcfg.yaml
+kubeadm init phase certs apiserver-etcd-client --config=/tmp/{{ hostvars[node]['guest_custom_ip']  }}/kubeadmcfg.yaml
+{% if node != groups['etcd'] | first %}
+cp -Rp /etc/kubernetes/pki /tmp/{{ hostvars[node]['guest_custom_ip']  }}/
+find /etc/kubernetes/pki -not -name ca.crt -not -name ca.key -type f -delete
+{% endif %}
+
+{% endfor %}
