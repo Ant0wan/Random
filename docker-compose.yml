@@ -10,16 +10,13 @@ services:
       - data:/var/opt/gitlab
       - logs:/var/log/gitlab
       - config:/etc/gitlab
-        # - $GITLAB_HOME/data:/var/opt/gitlab
-        #  - $GITLAB_HOME/logs:/var/log/gitlab
-        #  - $GITLAB_HOME/config:/etc/gitlab
         #    environment:
         #      GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
-      #    configs:
-      #      - source: gitlab
-      #        target: /omnibus_config.rb
-      #    secrets:
-      #      - gitlab_root_password
+    configs:
+      - source: gitlab
+        target: /omnibus_config.rb
+    secrets:
+      - gitlab_root_password
 
         #  gitlab-runner:
         #    image: gitlab/gitlab-runner:alpine
@@ -38,6 +35,6 @@ networks:
         #  gitlab:
         #    file: ./gitlab.rb
         #
-        #secrets:
-        #  gitlab_root_password:
-        #    file: ./root_password.txt
+secrets:
+  gitlab_root_password:
+    file: ./root_password.txt
