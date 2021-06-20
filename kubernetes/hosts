@@ -1,9 +1,0 @@
-[etcd]
-etcd00 vm_guestname='' esx_hostname='' vm_hostname='etcd00' guest_datastore='' guest_custom_ip='' ansible_host=''
-etcd01 vm_guestname='' esx_hostname='' vm_hostname='etcd01' guest_datastore='' guest_custom_ip='' ansible_host=''
-etcd02 vm_guestname='' esx_hostname='' vm_hostname='etcd02' guest_datastore='' guest_custom_ip='' ansible_host=''
-
-[etcd:vars]
-guest_memory='4096'
-guest_vcpu='4'
-guest_disk_size='84'
