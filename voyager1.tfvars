@@ -10,8 +10,8 @@ network = {
 }
 
 cluster = {
-	name = "outer-planets"
-	node_pool = "mariner-jupiter-saturn"
-	node_quantity = 3
-	machine = "e2-medium"
+  name          = "outer-planets"
+  node_pool     = "mariner-jupiter-saturn"
+  node_quantity = 3
+  machine       = "e2-medium"
 }

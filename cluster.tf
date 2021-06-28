@@ -3,6 +3,7 @@ resource "google_container_cluster" "mariner" {
   location                 = var.info.region
   remove_default_node_pool = true
   initial_node_count       = 1
+  project                  = var.info.id
 }
 
 resource "google_container_node_pool" "mariner_nodes" {
@@ -10,6 +11,7 @@ resource "google_container_node_pool" "mariner_nodes" {
   location   = var.info.region
   cluster    = google_container_cluster.mariner.name
   node_count = var.cluster.node_quantity
+  project    = var.info.id
 
   node_config {
     preemptible  = true
