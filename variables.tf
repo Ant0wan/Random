@@ -14,3 +14,13 @@ variable "network" {
     ip_pods  = string
   })
 }
+
+variable "cluster" {
+  description = "Kubernetes configuration variables"
+  type = object({
+    name          = string
+    node_pool     = string
+    node_quantity = number
+    machine       = string
+  })
+}
