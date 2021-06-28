@@ -1,6 +1,7 @@
 variable "info" {
   type = object({
-    project_id = string
-    region     = string
+    name   = string
+    id     = string
+    region = string
   })
 }
