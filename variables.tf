@@ -10,6 +10,7 @@ variable "info" {
 variable "network" {
   description = "Network variables for the Kubernetes cluster"
   type = object({
-    ip_range = string
+    ip_nodes = string
+    ip_pods  = string
   })
 }
