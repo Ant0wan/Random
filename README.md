@@ -1,3 +1,2 @@
-- gitlab: gitlab.xargs.cloud
 - kubernetes cluster: kubernetes.xargs.cloud
 - todo: todo.xargs.cloud
