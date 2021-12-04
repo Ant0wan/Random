@@ -41,6 +41,13 @@
 ---
 ### GKE Clusters
 
+Dev: *New Horizons*
+
+Stage: *Voyager II*
+
+Prod: *Voyager I*
+
+
 #### Bootstrap with Terraform
 
 - kubernetes cluster: kubernetes.xargs.cloud <= gives control plane
