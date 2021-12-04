@@ -41,11 +41,11 @@
 ---
 ### GKE Clusters
 
-Dev: *New Horizons*
+Dev: *![New Horizons](https://fr.wikipedia.org/wiki/New_Horizons)*
 
-Stage: *Voyager II*
+Stage: *![Voyager II](https://fr.wikipedia.org/wiki/Voyager_2)*
 
-Prod: *Voyager I*
+Prod: *![Voyager I](https://fr.wikipedia.org/wiki/Voyager_1)*
 
 
 #### Bootstrap with Terraform
