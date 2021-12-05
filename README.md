@@ -41,11 +41,12 @@
 ---
 ### GKE Clusters
 
-Dev: *![New Horizons](https://fr.wikipedia.org/wiki/New_Horizons)*
 
-Stage: *![Voyager II](https://fr.wikipedia.org/wiki/Voyager_2)*
+Dev: *James-Webb*, Guiana Space Center, Cnes
 
-Prod: *![Voyager I](https://fr.wikipedia.org/wiki/Voyager_1)*
+Stage: *Hayabusa II*, Usuda Deep Space, Jaxa
+
+Prod: *New Horizons*, Deep Space Network, Nasa
 
 
 #### Bootstrap with Terraform
