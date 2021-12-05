@@ -51,3 +51,16 @@ Prod: *![Voyager I](https://fr.wikipedia.org/wiki/Voyager_1)*
 #### Bootstrap with Terraform
 
 - kubernetes cluster: kubernetes.xargs.cloud <= gives control plane
+
+1> Google Networks https://cloud.google.com/training/networking-security#network-engineer-learning-path
+2> GKE clusters
+3> Gitlab config
+4> Gitlab Runners
+4> Flux
+5> Grafana ? Prometheus ?
+
+#### Tools
+
+https://metacpan.org/dist/App-Asciio/view/lib/App/Asciio.pm
+
+also github.com/Ant0wan/config is needed
