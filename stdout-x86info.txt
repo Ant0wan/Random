@@ -1,2 +1,0 @@
-Command 'x86info' not found, but can be installed with:
-sudo apt install x86info
