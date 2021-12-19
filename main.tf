@@ -1,3 +1,2 @@
-module vpc
-
-module gke
+module "gcp" {
+}
