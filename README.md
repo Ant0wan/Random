@@ -55,12 +55,12 @@ Prod: *New Horizons*, Deep Space Network, Nasa
 
 - kubernetes cluster: kubernetes.xargs.cloud <= gives control plane
 
-1> Google Networks https://cloud.google.com/training/networking-security#network-engineer-learning-path
-2> GKE clusters
-3> GitHub Runners
-4> Flux
-5> Istio
-6> Grafana + Prometheus
+> 1. Google Networks https://cloud.google.com/training/networking-security#network-engineer-learning-path-
+> 2. GKE clusters
+> 3. GitHub Runners
+> 4. Flux
+> 5. Istio
+> 6. Grafana + Prometheus
 
 #### Tools
 
