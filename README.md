@@ -42,6 +42,8 @@
 ### GKE Clusters
 
 
+Objectives: GCP Associate, small project but production grade
+
 Dev: *James-Webb*, Guiana Space Center, Cnes
 
 Stage: *Hayabusa II*, Usuda Deep Space, Jaxa
