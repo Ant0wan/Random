@@ -57,11 +57,10 @@ Prod: *New Horizons*, Deep Space Network, Nasa
 
 1> Google Networks https://cloud.google.com/training/networking-security#network-engineer-learning-path
 2> GKE clusters
-3> Gitlab config
-4> Gitlab Runners
+3> GitHub Runners
 4> Flux
-5> Grafana ? Prometheus ?
-6> Istio
+5> Istio
+6> Grafana + Prometheus
 
 #### Tools
 
