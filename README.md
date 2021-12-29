@@ -39,6 +39,12 @@
 
 
 ---
+ToDo:
+
+Cloud Identity, IAM, predifined groups and associated roles: dev, devops, lead...
+
+
+
 ### GKE Clusters
 
 
