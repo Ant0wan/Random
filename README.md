@@ -42,8 +42,8 @@
 ToDo:
 
 Deploy using  Google Deployment Manager to gain time and make it more concise.
-[ ] - ![Private Cluster](https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters)
-[ ] - ![Deployment Manager - Full Production](https://googlecoursera.qwiklabs.com/focuses/19501605?parent=lti_session)
+- [ ] ![Private Cluster](https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters)
+- [ ] ![Deployment Manager - Full Production](https://googlecoursera.qwiklabs.com/focuses/19501605?parent=lti_session)
 
 Cloud Identity, IAM, predifined groups and associated roles: dev, devops, lead...
 
