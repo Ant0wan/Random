@@ -73,3 +73,25 @@ Objectives: GCP Associate, small project but production grade:
 https://metacpan.org/dist/App-Asciio/view/lib/App/Asciio.pm
 
 also github.com/Ant0wan/config is needed
+
+
+
+
+
+### Components
+
+```shell
+cert-manager
+cnrm-system
+config-connector-admin
+configconnector-operator-system
+flux-system
+gke-connect
+istio-gateway
+istio-system
+kube-node-lease
+kube-public
+kube-system
+kyverno
+tools
+```
