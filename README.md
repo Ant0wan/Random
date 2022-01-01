@@ -48,13 +48,13 @@ Cloud Identity, IAM, predifined groups and associated roles: dev, devops, lead..
 ### GKE Clusters
 
 
-Objectives: GCP Associate, small project but production grade
+Objectives: GCP Associate, small project but production grade:
 
-Dev: *James-Webb*, Guiana Space Center, Cnes
+- Dev: *James-Webb*, Guiana Space Center, Cnes
 
-Stage: *Hayabusa II*, Usuda Deep Space, Jaxa
+- Stage: *Hayabusa II*, Usuda Deep Space, Jaxa
 
-Prod: *New Horizons*, Deep Space Network, Nasa
+- Prod: *New Horizons*, Deep Space Network, Nasa
 
 
 #### Bootstrap with Terraform
