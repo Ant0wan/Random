@@ -41,6 +41,11 @@
 ---
 ToDo:
 
+Deploy using  Google Deployment Manager to gain time and make it more concise.
+
+Qwiklabs - Deployment Manager - Full Production
++  Private Cluster
+
 Cloud Identity, IAM, predifined groups and associated roles: dev, devops, lead...
 
 
