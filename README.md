@@ -48,6 +48,36 @@ Deploy using  Google Deployment Manager to gain time and make it more concise.
 Cloud Identity, IAM, predifined groups and associated roles: dev, devops, lead...
 
 
+### General Architecture
+
+```shell
+     ┌────────────────────────┐
+     │                        │
+     │     Cloud Router       │
+     │             NAT        │
+     └─────────────┬──────────┘
+                   │
+                   ├───────────────────────────────────────────────┐
+                   │                                               │
+┌──────────────────▼──────────────┐      ┌─────────────────────────▼─────────┐
+│ Dev Cluster k3   VPC            │      │ Staging Cluster k2      VPC       │
+│                                 │      │                                   │
+│       ┌─────────────────────┐   │      │                                   │
+│       │  GKE                │   │      │           ┌────────────────────┐  │
+│       │                     │   │      │           │  GKE               │  │
+│       │                     │   │      │           │                    │  │
+│       │                     │   │      │           │                    │  │
+│       │                     │   │      │           │                    │  │
+│       │                     │   │      │           │                    │  │
+│       │                     │   │      │           │                    │  │
+│       │                     │   │      │           │                    │  │
+│       │                     │   │      │           │                    │  │
+│       └─────────────────────┘   │      │           └────────────────────┘  │
+│                                 │      │                                   │
+└─────────────────────────────────┘      └───────────────────────────────────┘     ...
+```
+![https://asciiflow.com/#/](https://asciiflow.com/#/)
+
 
 ### GKE Clusters
 
