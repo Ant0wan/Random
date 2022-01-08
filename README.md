@@ -102,7 +102,7 @@ also github.com/Ant0wan/config is needed
 
 
 
-
+https://blog.ippon.fr/2020/04/29/valider-sa-certification-google-cloud-associate-en-8-semaines/
 
 ### Components
 
