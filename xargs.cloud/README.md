@@ -1,0 +1,123 @@
+<!-- TITLE -->
+<br />
+<div align="center">
+  <img src="logo.png" alt="Logo" width="80" height="80">
+  <h1 align="center">xargs.cloud</h3>
+  <p align="center">
+	A fully functionnal stack ready for development and production.
+  </p>
+</div>
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#Clusters">GKE Clusters</a>
+      <ul>
+        <li><a href="#dev.xargs.cloud">dev.xargs.cloud</a></li>
+        <li><a href="#stage.xargs.cloud">stage.xargs.cloud</a></li>
+        <li><a href="#prod.xargs.cloud">prod.xargs.cloud</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#Repository">Repository</a>
+      <ul>
+        <li><a href="#gitlab">Gitlab</a></li>
+        <li><a href="#ci">Gitlab CI</a></li>
+      </ul>
+    </li>
+    <li><a href="#flux">Flux CD</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+---
+ToDo:
+
+Deploy using  Google Deployment Manager to gain time and make it more concise.
+- [ ] ![Private Cluster](https://cloud.google.com/kubernetes-engine/docs/how-to/private-clusters)
+- [ ] ![Deployment Manager - Full Production](https://googlecoursera.qwiklabs.com/focuses/19501605?parent=lti_session)
+
+Cloud Identity, IAM, predifined groups and associated roles: dev, devops, lead...
+
+
+### General Architecture
+
+```shell
+     ┌────────────────────────┐
+     │     Cloud Router       │
+     │             NAT        │
+     └─────────────┬──────────┘
+                   │
+                   ├───────────────────────────────────────────────┐
+                   │                                               │
+┌──────────────────▼──────────────┐      ┌─────────────────────────▼─────────┐
+│ Dev Cluster k3   VPC            │      │ Staging Cluster k2      VPC       │
+│                                 │      │                                   │
+│       ┌─────────────────────┐   │      │           ┌────────────────────┐  │
+│       │  GKE                │   │      │           │  GKE               │  │
+│       │                     │   │      │           │                    │  │
+│       │                     │   │      │           │                    │  │
+│       └─────────────────────┘   │      │           └────────────────────┘  │
+└─────────────────────────────────┘      └───────────────────────────────────┘     ...
+```
+![https://asciiflow.com/#/](https://asciiflow.com/#/)
+
+
+### GKE Clusters
+
+
+Objectives: GCP Associate, small project but production grade:
+
+- Dev: *James-Webb*, Guiana Space Center, Cnes
+
+- Stage: *Hayabusa II*, Usuda Deep Space, Jaxa
+
+- Prod: *New Horizons*, Deep Space Network, Nasa
+
+
+#### Bootstrap with Terraform
+
+- kubernetes cluster: kubernetes.xargs.cloud <= gives control plane
+
+> 1. Google Networks https://cloud.google.com/training/networking-security#network-engineer-learning-path-
+> 2. GKE clusters
+> 3. GitHub Runners
+> 4. Flux
+> 5. Istio
+> 6. Grafana + Prometheus
+
+#### Tools
+
+https://metacpan.org/dist/App-Asciio/view/lib/App/Asciio.pm
+
+also github.com/Ant0wan/config is needed
+
+
+
+https://blog.ippon.fr/2020/04/29/valider-sa-certification-google-cloud-associate-en-8-semaines/
+
+### Components
+
+```shell
+cert-manager
+cnrm-system
+config-connector-admin
+configconnector-operator-system
+flux-system
+gke-connect
+istio-gateway
+istio-system
+kube-node-lease
+kube-public
+kube-system
+kyverno
+tools
+```
